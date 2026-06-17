@@ -14,11 +14,10 @@ userRouter.use((req, res, next) => {
   next();
 });
 
-
 //middleware for home page
 userRouter.get("/", (req, res, next) => {
   console.log(homesData);
-  res.render('home', {homesData: homesData});
+  res.render('home', {homesData: homesData, currentPage: 'home'});
 });
 
 module.exports = userRouter;

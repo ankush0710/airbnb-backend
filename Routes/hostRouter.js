@@ -9,15 +9,21 @@ const hostRouter = express.Router();
 const rootDir = require("../utils/pathUtils");
 
 hostRouter.get("/add-home", (req, res, next) => {
-  res.sendFile(path.join(rootDir, 'views', 'addHome.html'));
+  res.render('addHome', {currentPage: 'addHome'});
 });
 
-// to captire the home name
+// to capture the entire data form body
 const homesData = [];
 hostRouter.post("/add-home", (req, res, next) => {
-  console.log('Home Added as home:', req.body.homeName);
-  homesData.push({homeName: req.body.homeName});
-  // console.log(homesData);
+
+  // homesData.push({
+  //   homeName: req.body.homeName,
+  //   price: req.body.price,
+  //   location: req.body.location,
+  //   rating: req.body.ratings
+  // });
+  homesData.push(req.body)
+  console.log(homesData);
   res.sendFile(path.join(rootDir, 'views', 'homeAddedMessage.html'));
 });
 

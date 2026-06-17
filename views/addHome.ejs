@@ -23,15 +23,23 @@
             box-shadow: 0 6px 18px rgba(15, 23, 42, 0.12);
         }
 
-        .navbar a {
+
+        .navItems {
             color: #fff;
             text-decoration: none;
-            margin-left: 1rem;
+            margin-left: 1.25rem;
             font-weight: 600;
         }
 
-        .navbar a:hover {
+        .navItems:hover {
             text-decoration: underline;
+        }
+
+        .navActiveItems {
+            text-decoration: underline;
+            font-weight: 800;
+            color: #fff;
+            text-underline-offset: 4px;
         }
 
         .container {
@@ -75,6 +83,21 @@
             box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
         }
 
+        input[type="number"] {
+            width: 100%;
+            padding: 0.95rem 1rem;
+            border-radius: 14px;
+            border: 1px solid #cbd5e1;
+            font-size: 1rem;
+            color: #0f172a;
+            outline: none;
+        }
+
+        input[type="number"]:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+        }
+
         button {
             width: 100%;
             padding: 0.95rem 1.25rem;
@@ -104,8 +127,8 @@
     <header class="navbar">
         <div class="brand">Airbnb Clone</div>
         <nav>
-            <a href="/host/add-home">Add Home</a>
-            <a href="/">Go To Home</a>
+            <a href="/host/add-home" class="<%= currentPage == 'addHome' ? 'navActiveItems' : 'navItems'%>">Add Home</a>
+            <a href="/" class="navItems">Go To Home</a>
         </nav>
     </header>
 
@@ -115,6 +138,10 @@
             <p class="helper">Submit a home name to add it to the registered homes list.</p>
             <form action="/host/add-home" method="POST" class="form-row">
                 <input type="text" name="homeName" placeholder="Enter your home name" required />
+                <input type="number" name="price" placeholder="Enter price per night" required />
+                <input type="text" name="location" placeholder="Enter your home location" required />
+                <input type="number" name="ratings" placeholder="Ratings" required />
+                <input type="text" name="imageUrl" placeholder="Enter Image URL" required />
                 <button type="submit">Submit</button>
             </form>
         </section>
