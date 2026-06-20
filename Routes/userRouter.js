@@ -1,12 +1,10 @@
-//core modules
-const path = require("path");
-
 //external modules
 const express = require("express");
 const userRouter = express.Router();
 
 //Loacal modules
 const {homesData} = require("../Routes/hostRouter");
+const homeController = require("../controllers/home")
 
 // common middleware for all routes
 userRouter.use((req, res, next) => {
@@ -15,9 +13,6 @@ userRouter.use((req, res, next) => {
 });
 
 //middleware for home page
-userRouter.get("/", (req, res, next) => {
-  console.log(homesData);
-  res.render('home', {homesData: homesData, currentPage: 'home'});
-});
+userRouter.get("/", homeController.getHome);
 
 module.exports = userRouter;
