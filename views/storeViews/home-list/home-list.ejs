@@ -173,19 +173,25 @@
             <section class="cards">
                 <% homesData.forEach((home, index)=> { %>
                     <article class="card">
-                        <img src="<%= home.imageUrl %>" alt="<%= home.homeName %>" class="home-image" />
-                        <hr style="height: 5px; background-color: blue; border: none;">
-                        <h2>Home Name: <span style="font-size: 18px; color: #475569;">
-                                <%= home.homeName %>
-                            </span></h2>
-                        <h2>Price: <span
-                                style="font-size: 18px; color: #475569;"">INR. <%= home.price %></span><span style="
-                                font-size: 15px; color: #475569;"> /night</span></h2>
-                        <h2>Location: <span style="font-size: 18px; color: #475569;""><%= home.location %></span></h2>
-                        <h2>Rating: <span style=" font-size: 18px; color: #475569;"">
-                                <%= home.ratings %>
-                            </span><span style="font-size: 16px; color: #475569;"> out of 10</span></h2>
-                        <p>Listing #<%= index + 1 %> added to the guest-ready collection.</p>
+                        <% const displayRating = (home.ratings !== undefined && !isNaN(Number(home.ratings))) ? Number(home.ratings).toFixed(1) : (home.ratings || 'N/A'); %>
+                        <img src="<%= home.imageUrl %>" alt="<%= home.name || home.homeName %>" class="home-image" />
+                        <hr style="height: 4px; background-color: rgba(29,78,216,0.12); border: none; margin: 10px 0;">
+
+                        <div style="display:flex;flex-direction:column;gap:8px;">
+                            <h2 style="margin:0;font-size:1.25rem;color:#0f172a;"> <%= home.name || home.homeName %> </h2>
+
+                            <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;">
+                                <div style="color:#475569;font-weight:600;">INR <span style="font-weight:700;color:#0f172a;"><%= home.price %></span>
+                                    <span style="font-size:0.9rem;color:#64748b;margin-left:6px;">/night</span>
+                                </div>
+
+                                <div style="color:#475569;">Rating: <span style="font-weight:700;color:#0f172a;"><%= displayRating %></span>/10</div>
+                            </div>
+
+                            <div style="color:#475569;">Location: <span style="font-weight:600;color:#0f172a;"><%= home.location %></span></div>
+
+                            <p style="margin:0;color:#64748b;font-size:0.95rem;">Listing #<%= index + 1 %> added to the guest-ready collection.</p>
+                        </div>
                     </article>
                     <% }) %>
             </section>

@@ -12,6 +12,6 @@ hostRouter.get("/add-home", homeController.getAddHome);
 hostRouter.post("/add-home", homeController.postAddHome);
 
 
-exports.hostRouter = hostRouter;
+module.exports = hostRouter;
 
 

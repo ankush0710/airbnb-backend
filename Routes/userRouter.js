@@ -3,7 +3,6 @@ const express = require("express");
 const userRouter = express.Router();
 
 //Loacal modules
-const {homesData} = require("../Routes/hostRouter");
 const homeController = require("../controllers/home")
 
 // common middleware for all routes

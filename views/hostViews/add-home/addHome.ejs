@@ -127,7 +127,6 @@
     <header class="navbar">
         <div class="brand">Airbnb Clone</div>
         <nav>
-            <a href="/host/add-home" class="<%= currentPage == 'addHome' ? 'navActiveItems' : 'navItems'%>">Add Home</a>
             <a href="/" class="navItems">Go To Home</a>
         </nav>
     </header>
@@ -135,12 +134,12 @@
     <main class="container">
         <section class="card">
             <h2>Add Your Home</h2>
-            <p class="helper">Submit a home name to add it to the registered homes list.</p>
+            <p class="helper">Enter your home's details to add it to the listings.</p>
             <form action="/host/add-home" method="POST" class="form-row">
-                <input type="text" name="homeName" placeholder="Enter your home name" required />
+                <input type="text" name="name" placeholder="Enter your home title (e.g. Cozy Studio)" required />
                 <input type="number" name="price" placeholder="Enter price per night" required />
                 <input type="text" name="location" placeholder="Enter your home location" required />
-                <input type="number" name="ratings" placeholder="Ratings" required />
+                <input type="number" name="ratings" placeholder="Ratings (0-10)" min="0" max="10" step="0.1" required />
                 <input type="text" name="imageUrl" placeholder="Enter Image URL" required />
                 <button type="submit">Submit</button>
             </form>

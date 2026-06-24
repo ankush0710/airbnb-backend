@@ -4,31 +4,28 @@ const rootDir = require("../utils/pathUtils");
 const Home = require("../models/home");
 
 //===================================================//
-// controller for handling get requests for add homes data 
+//  controller for handling get requests for add homes data 
 exports.getAddHome = (req, res, next) => {
-    console.log("getAddHome controller is called...")
-  res.render("addHome", { currentPage: "addHome" });
+    console.log("getAddHome controller is called...");
+  res.render("hostViews/add-home/addHome", { currentPage: "addHome" });
 };
 
 //===================================================//
 //controller for handling post homes requests
 exports.postAddHome = (req, res, next) => {
 
-  const {houseName, price, location, rating, photoUrl} = req.body;
+  // Accept new `name` field, but keep backwards compatibility if `homeName` is present
+  const { name, price, location, ratings, imageUrl, homeName } = req.body;
 
-  // homesData.push({
-  //   homeName: req.body.homeName,
-  //   price: req.body.price,
-  //   location: req.body.location,
-  //   rating: req.body.ratings
-  // });
-  const home = new Home(req.body.houseName, req.body.price, req.body.location, req.body.rating, req.body.photoUrl);
+  const title = name || homeName; // prefer `name` when available
+  const home = new Home(title, price, location, ratings, imageUrl);
   home.save();
-  res.sendFile(path.join(rootDir, 'views', 'homeAddedMessage.html'));
+  res.render("hostViews/home-added/homeAddedMessage", {currentPage: "homeAddedMessage"});
 }
 
 //===============================================================//
 exports.getHome = (req, res, next) => {
-  const homesData = Home.fetchAll();
-  res.render('home', {homesData: homesData, currentPage: 'home'});
-}
+  Home.fetchAll(homesData => {
+    res.render("storeViews/home-list/home-list", { homesData: homesData, currentPage: 'Home' });
+  });
+};
