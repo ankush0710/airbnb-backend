@@ -6,42 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>airbnb-addHome</title>
     <style>
-        body {
-            margin: 0;
-            font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background: linear-gradient(180deg, #eef2ff 0%, #f8fafc 100%);
-            color: #0f172a;
-        }
-
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 2rem;
-            background: #1d4ed8;
-            color: #fff;
-            box-shadow: 0 6px 18px rgba(15, 23, 42, 0.12);
-        }
-
-
-        .navItems {
-            color: #fff;
-            text-decoration: none;
-            margin-left: 1.25rem;
-            font-weight: 600;
-        }
-
-        .navItems:hover {
-            text-decoration: underline;
-        }
-
-        .navActiveItems {
-            text-decoration: underline;
-            font-weight: 800;
-            color: #fff;
-            text-underline-offset: 4px;
-        }
-
         .container {
             max-width: 560px;
             margin: 3rem auto;
@@ -123,14 +87,8 @@
     </style>
 </head>
 
-<body>
-    <header class="navbar">
-        <div class="brand">Airbnb Clone</div>
-        <nav>
-            <a href="/" class="navItems">Go To Home</a>
-        </nav>
+    <%- include('../../partials/nav') %>
     </header>
-
     <main class="container">
         <section class="card">
             <h2>Add Your Home</h2>
@@ -145,6 +103,6 @@
             </form>
         </section>
     </main>
-</body>
+    </body>
 
 </html>
