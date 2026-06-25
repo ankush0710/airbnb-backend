@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>airbnb-bookings</title>
+  <style>
+    .container {
+      max-width: 1200px;
+      width: 100%;
+      margin: 2rem auto;
+      padding: 0 1.25rem;
+      box-sizing: border-box;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      justify-content: center;
+      align-items: start;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 350px;
+      background: #ffffff;
+      border-radius: 22px;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      box-shadow: 0 16px 30px rgba(15, 23, 42, 0.08);
+      padding: 1.75rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      margin: 0 auto;
+    }
+
+    .card:hover {
+      box-shadow: 0 20px 35px rgba(15, 23, 42, 0.14);
+    }
+
+    .card h1 {
+      margin: 0 0 0.75rem;
+      font-size: 1.35rem;
+      color: #0f172a;
+    }
+
+    .card p {
+      margin: 0;
+      color: #475569;
+      line-height: 1.65;
+    }
+  </style>
+</head>
+<body>
+  <%- include('../../partials/nav') %>
+  <main class="container">
+    <section class="hero">
+      <div class="card">
+        <h1>My Bookings</h1>
+        <p>All Bookings will appear here</p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

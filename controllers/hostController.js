@@ -22,10 +22,3 @@ exports.postAddHome = (req, res, next) => {
   home.save();
   res.render("hostViews/home-added/homeAddedMessage", {currentPage: "homeAddedMessage"});
 }
-
-//===============================================================//
-exports.getHome = (req, res, next) => {
-  Home.fetchAll(homesData => {
-    res.render("storeViews/home-list/home-list", { homesData: homesData, currentPage: 'Home' });
-  });
-};

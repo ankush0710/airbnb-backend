@@ -5,7 +5,7 @@ const app = express();
 const path = require('path');
 
 //Local Modules
-const userRouter = require("./Routes/userRouter");
+const storeRouter = require("./Routes/storeRouter");
 const hostRouter = require("./Routes/hostRouter");
 const errorController = require("./controllers/errors");
 
@@ -15,7 +15,7 @@ app.set("views", path.join(__dirname, "views"));
 //It reads the data and makes it available as a JavaScript object on req.body
 // Parse URL-encoded bodies (as sent by HTML forms)
 app.use(express.urlencoded({ extended: false }));
-app.use(userRouter);
+app.use(storeRouter);
 app.use('/host', hostRouter);
 
 //404 error page

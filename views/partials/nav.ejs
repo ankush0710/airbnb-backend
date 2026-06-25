@@ -1,59 +1,63 @@
 <style>
-     *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
-        }
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
 
-        body {
-            margin: 0;
-            font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background: #eef2ff;
-            color: #0f172a;
-        }
+    body {
+        margin: 0;
+        font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: #eef2ff;
+        color: #0f172a;
+    }
 
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 2rem;
-            background: #659287;
-            box-shadow: 0 6px 18px rgba(15, 23, 42, 0.12);
-        }
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 2rem;
+        background: #659287;
+        box-shadow: 0 6px 18px rgba(15, 23, 42, 0.12);
+    }
 
-        .navItems {
-            color: #fff;
-            text-decoration: none;
-            margin-left: 1.25rem;
-            font-weight: 600;
-        }
+    .navItems {
+        color: #fff;
+        text-decoration: none;
+        margin-left: 1.25rem;
+        font-weight: 600;
+    }
 
-        .navItems:hover {
-            text-decoration: underline;
-        }
+    .navItems:hover {
+        text-decoration: underline;
+    }
 
-        .navActiveItems {
-            text-decoration: underline;
-            font-weight: 800;
-            color: #fff;
-            text-underline-offset: 4px;
-        }
+    .navActiveItems {
+        text-decoration: underline;
+        font-weight: 600;
+        color: #fff;
+        text-underline-offset: 4px;
+    }
 
-
-        .brand {
-            font-size: 1.50rem;
-            font-weight: 700;
-            color: #233D4D;
-        }
+    .brand {
+        font-size: 1.50rem;
+        font-weight: 700;
+        color: #233D4D;
+    }
 </style>
-<body>
-    <header class="navbar">
-        <div class="brand">airbnb Clone</div>
-        <nav>
-            <% if(currentPage == 'Home'){ %>
-            <a href="/" class="<%= currentPage == 'home' ? 'navActiveItems' : 'navItems'%>">Home</a>
-            <a href="/host/add-home" class="navItems">Add Home</a>
-            <% } else if(currentPage == 'addHome'){ %>
-                <a href="/" class="navItems">Go To Home</a>
-            <% } %>
-        </nav>
+
+<header class="navbar">
+    <div class="brand">airbnb Clone</div>
+
+    <nav>
+        <a href="/" class="<%= currentPage === 'Home' ? 'navActiveItems' : 'navItems' %>">Home</a>
+
+        <a href="/bookings" class="<%= currentPage === 'bookings' ? 'navActiveItems' : 'navItems' %>">
+            Bookings
+        </a>
+
+        <a href="/host/add-home" class="<%= currentPage === 'addHome' ? 'navActiveItems' : 'navItems' %>">
+            Add Home
+        </a>
+    </nav>
+</header>
