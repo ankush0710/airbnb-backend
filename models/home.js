@@ -30,8 +30,16 @@ module.exports = class Home {
   static fetchAll(callback) {
     const homesDataPath = path.join(rootDir, "data", "homes.json");
     fs.readFile(homesDataPath, (err, data) => {
-      // console.log("File read:", err, data);
       callback(!err ? JSON.parse(data) : []);
     });
+  }
+
+  static findById(homeId, callback) {
+    const homesDataPath = path.join(rootDir, "data", "homes.json");
+    this.fetchAll((homes) => {
+      const selectedHome = homes.find((home) => home.id === homeId);
+      callback(selectedHome);
+    })
+
   }
 };

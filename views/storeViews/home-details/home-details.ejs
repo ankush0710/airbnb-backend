@@ -4,16 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>airbnb-home</title>
+    <title>Airbnb - Home Details</title>
     <style>
-        html, body {
-            /* Hides scrollbar for Firefox and IE/Edge */
+        html,
+        body {
             scrollbar-width: none;
             -ms-overflow-style: none;
             overflow: hidden;
+            margin: 0;
+            background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%);
+            font-family: Arial, Helvetica, sans-serif;
         }
 
-        html::-webkit-scrollbar, body::-webkit-scrollbar {
+        html::-webkit-scrollbar,
+        body::-webkit-scrollbar {
             display: none;
         }
 
@@ -21,12 +25,10 @@
             max-width: 1200px;
             width: 100%;
             margin: 2rem auto;
-            padding: 0 1.25rem;
+            padding: 0 1.25rem 2rem;
             box-sizing: border-box;
-            /* Crucial: Allows content to overflow so it can scroll */
             overflow-y: auto;
             max-height: calc(100vh - 140px);
-            /* Hides scrollbar for Firefox and IE/Edge */
             scrollbar-width: none;
             -ms-overflow-style: none;
         }
@@ -35,154 +37,158 @@
             display: none;
         }
 
-        .hero {
-            text-align: center;
-            margin-bottom: 2rem;
-            padding: 2rem;
-            background: #fff;
-            border-radius: 24px;
-            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
-        }
-
-        .hero h1 {
-            margin: 0 0 0.5rem;
-            font-size: clamp(2rem, 3vw, 3rem);
-            color: #1e293b;
-        }
-
-        .hero p {
-            margin: 0;
-            color: #475569;
-            line-height: 1.7;
-        }
-
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            justify-content: center;
-            align-items: start;
-        }
-
-        .card {
-            width: 100%;
-            max-width: 350px;
+        .detail-card {
             background: #ffffff;
-            border-radius: 22px;
-            border: 1px solid rgba(148, 163, 184, 0.18);
-            box-shadow: 0 16px 30px rgba(15, 23, 42, 0.08);
-            padding: 1.75rem;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            margin: 0 auto;
-        }
-
-        @media (max-width: 1100px) {
-            .cards {
-                grid-template-columns: repeat(2, 350px);
-            }
-        }
-
-        @media (max-width: 760px) {
-            .cards {
-                grid-template-columns: 1fr;
-                gap: 16px;
-            }
-
-            .card {
-                max-width: none;
-            }
-        }
-
-        .card:hover {
-            box-shadow: 0 20px 35px rgba(15, 23, 42, 0.14);
-        }
-
-        .image-wrapper {
-            position: relative;
-            margin-bottom: 12px;
-            border-radius: 8px;
+            border-radius: 28px;
+            box-shadow: 0 20px 45px rgba(15, 23, 42, 0.1);
             overflow: hidden;
         }
 
-        .home-image {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-            display: block;
+        .back-link {
+            display: inline-block;
+            margin: 1.25rem 1.25rem 0;
+            color: #4f46e5;
+            font-weight: 700;
+            text-decoration: none;
         }
 
-        .favorite-btn {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            border: none;
-            background: rgba(255, 255, 255, 0.92);
-            color: #ef4444;
-            font-size: 1.1rem;
-            cursor: pointer;
-            box-shadow: 0 10px 20px rgba(15, 23, 42, 0.12);
+        .detail-grid {
             display: grid;
-            place-items: center;
-            transition: transform 0.2s ease, background-color 0.2s ease;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 1.5rem;
+            padding: 1.25rem;
         }
 
-        .favorite-btn:hover {
-            transform: scale(1.05);
-            background: #ffffff;
+        .image-panel img {
+            width: 100%;
+            height: 100%;
+            min-height: 360px;
+            object-fit: cover;
+            border-radius: 22px;
         }
 
-        .card h2 {
-            margin: 0 0 0.75rem;
-            font-size: 1.35rem;
+        .info-panel {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0.5rem 0.25rem;
+        }
+
+        .pill-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-bottom: 1rem;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            background: #eef2ff;
+            color: #4338ca;
+            padding: 0.45rem 0.8rem;
+            border-radius: 999px;
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        .info-panel h1 {
+            margin: 0 0 0.5rem;
+            font-size: clamp(1.8rem, 2.5vw, 2.6rem);
             color: #0f172a;
         }
 
-        .card p {
-            margin: 0;
+        .price {
+            margin: 0 0 1rem;
+            font-size: 1.05rem;
             color: #475569;
-            line-height: 1.65;
         }
 
-        .empty {
-            background: #e2e8f0;
-            border-radius: 18px;
-            padding: 2rem;
-            text-align: center;
+        .price strong {
+            color: #111827;
+            font-size: 1.3rem;
+        }
+
+        .description {
+            margin: 0 0 1.5rem;
+            color: #475569;
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.85rem;
+        }
+
+        .btn {
+            text-decoration: none;
+            padding: 0.8rem 1.2rem;
+            border-radius: 999px;
+            font-weight: 700;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: #ef4444;
+            color: #ffffff;
+            box-shadow: 0 10px 20px rgba(239, 68, 68, 0.2);
+        }
+
+        .btn-secondary {
+            background: #f8fafc;
             color: #334155;
+            border: 1px solid #e2e8f0;
         }
 
-        .book-btn {
-            width: 100%;
-            padding: 0.75rem 1.25rem;
-            margin-top: 8px;
-            background-color: #659287;
-            border: 1px solid;
-            border-radius: 20px;
-            font-size: 1.25rem;
-            font-weight: 500;
-            cursor: pointer;
-            color: #fff;
-        }
+        @media (max-width: 860px) {
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
 
-        .book-btn:hover {
-            background-color: #428475;
-            transition: all;
-            transition-duration: 300ms;
+            .image-panel img {
+                min-height: 280px;
+            }
         }
     </style>
 </head>
 
 <%- include('../../partials/nav') %>
 
-    <main class="container">
-        <section class="hero">
-            <h1>Home Deatils</h1>
-            <p>here is the details of your selected home</p>
-        </section>
-    </main>
-    </body>
+<main class="container">
+    <section class="detail-card">
+        <a class="back-link" href="/">← Back to Home</a>
 
+        <div class="detail-grid">
+            <div class="image-panel">
+                <img src="<%= homes.imageUrl %>" alt="<%= homeName %>" />
+            </div>
+
+            <div class="info-panel">
+                <div class="pill-row">
+                    <% const displayRating=(homes.ratings !==undefined && !isNaN(Number(homes.ratings))) ?
+                        Number(homes.ratings).toFixed(1) : (homes.ratings || 'N/A' ); %>
+                    <span class="pill">⭐ <%= displayRating %>/10</span>
+                    <span class="pill">📍 <%= homes.location %></span>
+                </div>
+
+                <h1><%= homeName %></h1>
+                <p class="price">From <strong>₹<%= homes.price %></strong> / night</p>
+                <p class="description"><%= description %></p>
+
+                <div class="actions">
+                    <a class="btn btn-primary" href="/favourite-list">♡ Add to favourites</a>
+                    <a class="btn btn-secondary" href="/">Back to home</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
 </html>

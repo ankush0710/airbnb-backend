@@ -16,6 +16,7 @@ storeRouter.get("/", storeController.getHomes);
 storeRouter.get("/bookings", storeController.getBookings);
 storeRouter.get("/reserve", storeController.getReserve);
 storeRouter.get("/favourite-list", storeController.getFavouites);
+storeRouter.get("/homes/:homeId", storeController.getHomeDetails);
 
 // middleware for reserve routes
 module.exports = storeRouter;
