@@ -128,20 +128,24 @@
             place-items: center;
             transition: transform 0.2s ease, background-color 0.2s ease;
         }
+
         .favorite-btn:hover {
             transform: scale(1.05);
             background: #ffffff;
         }
+
         .card h2 {
             margin: 0 0 0.75rem;
             font-size: 1.35rem;
             color: #0f172a;
         }
+
         .card p {
             margin: 0;
             color: #475569;
             line-height: 1.65;
         }
+
         .empty {
             background: #e2e8f0;
             border-radius: 18px;
@@ -149,30 +153,24 @@
             text-align: center;
             color: #334155;
         }
-        .btn-container{
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            gap:10px;
-        }
-        .btn-container button {
+
+        .book-btn {
             width: 100%;
-            padding: 0.50rem 1.25rem;
+            padding: 0.75rem 1.25rem;
             margin-top: 8px;
+            background-color: #659287;
             border: 1px solid;
             border-radius: 20px;
             font-size: 1.25rem;
             font-weight: 500;
             cursor: pointer;
-            
+            color: #fff;
         }
-        .edit-btn{
-            background-color: #334155;
-            color: #ffffff;
-        }
-        .delete-btn{
-            background-color: #ef4444;
-            color: #000000;
+
+        .book-btn:hover {
+            background-color: #428475;
+            transition: all;
+            transition-duration: 300ms;
         }
     </style>
 </head>
@@ -181,7 +179,8 @@
 
     <main class="container">
         <section class="hero">
-            <h1>This is Your Homes List</h1>
+            <h1>My Favorites</h1>
+            <p>hey, This is your favourite list</p>
         </section>
 
         <% if (homesData && homesData.length> 0) { %>
@@ -223,17 +222,13 @@
                                 <p style="margin:0;color:#64748b;font-size:0.95rem;">Listing #<%= index + 1 %> added to
                                         the guest-ready collection.</p>
                             </div>
-                            <div class="btn-container">
-                                <button class="edit-btn">Edit</button>
-                            <button class="delete-btn">Delete</button>
-                            </div>
-
+                            <button class="book-btn">Book Now</button>
                     </article>
                     <% }) %>
             </section>
             <% } else { %>
                 <div class="empty">
-                    <p>No homes are registered yet. Use the Add Home link to create your first listing.</p>
+                    <p>No favourites are selected.</p>
                 </div>
                 <% } %>
     </main>

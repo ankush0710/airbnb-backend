@@ -21,15 +21,57 @@
         box-shadow: 0 6px 18px rgba(15, 23, 42, 0.12);
     }
 
+    .navbar-left {
+        flex: 1;
+    }
+
+    .navbar-center {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .navbar-center nav {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0;
+    }
+
+    .navbar-right {
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+    .navbar-right nav {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 0;
+    }
+
+    .page-title {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: #fff;
+    }
+
     .navItems {
         color: #fff;
         text-decoration: none;
-        margin-left: 1.25rem;
+        padding: 0.5rem 1rem;
         font-weight: 600;
+        display: inline-block;
+        transition: all 0.3s ease;
     }
 
     .navItems:hover {
         text-decoration: underline;
+        text-underline-offset: 4px;
     }
 
     .navActiveItems {
@@ -37,6 +79,8 @@
         font-weight: 600;
         color: #fff;
         text-underline-offset: 4px;
+        padding: 0.5rem 1rem;
+        display: inline-block;
     }
 
     .brand {
@@ -44,20 +88,57 @@
         font-weight: 700;
         color: #233D4D;
     }
+
+    .login-btn {
+        background-color: #fff;
+        color: #659287;
+        border: none;
+        padding: 0.6rem 1.5rem;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+
+    .login-btn:hover {
+        background-color: #f0f0f0;
+        transform: scale(1.05);
+    }
 </style>
 
 <header class="navbar">
-    <div class="brand">airbnb Clone</div>
+    <div class="navbar-left">
+        <div class="brand">airbnb Clone</div>
+    </div>
 
-    <nav>
-        <a href="/" class="<%= currentPage === 'Home' ? 'navActiveItems' : 'navItems' %>">Home</a>
+    <div class="navbar-center">
+        <nav>
+            <a href="/" class="<%= currentPage === 'Home' ? 'navActiveItems' : 'navItems' %>">Home</a>
 
-        <a href="/bookings" class="<%= currentPage === 'bookings' ? 'navActiveItems' : 'navItems' %>">
-            Bookings
-        </a>
+            <a href="/reserve" class="<%= currentPage === 'reserve' ? 'navActiveItems' : 'navItems' %>">
+                Reserve
+            </a>
+            
+             <a href="/bookings" class="<%= currentPage === 'bookings' ? 'navActiveItems' : 'navItems' %>">
+                Bookings
+            </a>
 
-        <a href="/host/add-home" class="<%= currentPage === 'addHome' ? 'navActiveItems' : 'navItems' %>">
-            Add Home
-        </a>
-    </nav>
+            <a href="/favourite-list" class="<%= currentPage === 'favourite-list' ? 'navActiveItems' : 'navItems' %>">
+                Favourites
+            </a>
+
+            <a href="/host/add-home" class="<%= currentPage === 'addHome' ? 'navActiveItems' : 'navItems' %>">
+                Add Home
+            </a>
+
+            <a href="/host/host-home-list" class="<%= currentPage === 'host-home-list' ? 'navActiveItems' : 'navItems' %>">
+                Host Home List
+            </a>
+        </nav>
+    </div>
+
+    <!-- <div class="navbar-right">
+        <a href="/login" class="login-btn">Login</a>
+    </div> -->
 </header>

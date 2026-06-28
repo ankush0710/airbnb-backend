@@ -14,4 +14,8 @@ storeRouter.use((req, res, next) => {
 //middleware for home page
 storeRouter.get("/", storeController.getHomes);
 storeRouter.get("/bookings", storeController.getBookings);
+storeRouter.get("/reserve", storeController.getReserve);
+storeRouter.get("/favourite-list", storeController.getFavouites);
+
+// middleware for reserve routes
 module.exports = storeRouter;

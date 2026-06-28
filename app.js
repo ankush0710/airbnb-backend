@@ -14,7 +14,14 @@ app.set("views", path.join(__dirname, "views"));
 //To add the req into the req.body
 //It reads the data and makes it available as a JavaScript object on req.body
 // Parse URL-encoded bodies (as sent by HTML forms)
-app.use(express.urlencoded({ extended: false }));
+
+// Request logging middleware
+app.use((req, res, next) => {
+  // console.log(`📍 ${req.method} ${req.path}`);
+  next();
+});
+
+app.use(express.urlencoded({ extended: true }));
 app.use(storeRouter);
 app.use('/host', hostRouter);
 

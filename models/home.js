@@ -3,7 +3,7 @@ const path = require("path");
 const rootDir = require("../utils/pathUtils");
 
 // to capture the entire data form body like a fake database
-// const homesData = [];
+const homesData = [];
 
 module.exports = class Home {
   constructor(name, price, location, ratings, imageUrl) {
@@ -16,6 +16,8 @@ module.exports = class Home {
   }
 
   save() {
+    this.id = Math.random().toString();
+    console.log("hone.js data:", this);
     Home.fetchAll((homesData) => {
       homesData.push(this);
       const homesDataPath = path.join(rootDir, "data", "homes.json");

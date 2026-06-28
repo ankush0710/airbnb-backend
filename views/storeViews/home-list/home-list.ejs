@@ -6,12 +6,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>airbnb-home</title>
     <style>
+        html,
+        body {
+            /* Hides scrollbar for Firefox and IE/Edge */
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            overflow: hidden;
+        }
+
+        html::-webkit-scrollbar,
+        body::-webkit-scrollbar {
+            display: none;
+        }
+
         .container {
             max-width: 1200px;
             width: 100%;
             margin: 2rem auto;
             padding: 0 1.25rem;
             box-sizing: border-box;
+            /* Crucial: Allows content to overflow so it can scroll */
+            overflow-y: auto;
+            max-height: calc(100vh - 140px);
+            /* Hides scrollbar for Firefox and IE/Edge */
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .container::-webkit-scrollbar {
+            display: none;
         }
 
         .hero {
@@ -66,6 +89,7 @@
                 grid-template-columns: 1fr;
                 gap: 16px;
             }
+
             .card {
                 max-width: none;
             }
@@ -131,19 +155,21 @@
             text-align: center;
             color: #334155;
         }
-        .book-btn{
+
+        .book-btn {
             width: 100%;
             padding: 0.75rem 1.25rem;
-            margin-top:8px;
+            margin-top: 8px;
             background-color: #659287;
             border: 1px solid;
             border-radius: 20px;
             font-size: 1.25rem;
             font-weight: 500;
             cursor: pointer;
-            color:#fff;
+            color: #fff;
         }
-        .book-btn:hover{
+
+        .book-btn:hover {
             background-color: #428475;
             transition: all;
             transition-duration: 300ms;
@@ -151,7 +177,7 @@
     </style>
 </head>
 
-    <%- include('../../partials/nav') %>
+<%- include('../../partials/nav') %>
 
     <main class="container">
         <section class="hero">
@@ -163,29 +189,48 @@
             <section class="cards">
                 <% homesData.forEach((home, index)=> { %>
                     <article class="card">
-                        <% const displayRating = (home.ratings !== undefined && !isNaN(Number(home.ratings))) ? Number(home.ratings).toFixed(1) : (home.ratings || 'N/A'); %>
-                        <div class="image-wrapper">
-                            <img src="<%= home.imageUrl %>" alt="<%= home.name || home.homeName %>" class="home-image" />
-                            <button class="favorite-btn" aria-label="Add to favorites">❤</button>
-                        </div>
-                        <hr style="height: 4px; background-color: rgba(29,78,216,0.12); border: none; margin: 10px 0;">
+                        <a href="/homes/<%=home.id%>" style="cursor: pointer; text-decoration: none;">
 
-                        <div style="display:flex;flex-direction:column;gap:8px;">
-                            <h2 style="margin:0;font-size:1.25rem;color:#0f172a;"> <%= home.name || home.homeName %> </h2>
-
-                            <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;">
-                                <div style="color:#475569;font-weight:600;">INR <span style="font-weight:700;color:#0f172a;"><%= home.price %></span>
-                                    <span style="font-size:0.9rem;color:#64748b;margin-left:6px;">/night</span>
+                            <% const displayRating=(home.ratings !==undefined && !isNaN(Number(home.ratings))) ?
+                                Number(home.ratings).toFixed(1) : (home.ratings || 'N/A' ); %>
+                                <div class="image-wrapper">
+                                    <img src="<%= home.imageUrl %>" alt="<%= home.name || home.homeName %>"
+                                        class="home-image" />
+                                    <button class="favorite-btn" aria-label="Add to favorites">❤</button>
                                 </div>
+                                <hr
+                                    style="height: 4px; background-color: rgba(29,78,216,0.12); border: none; margin: 10px 0;">
 
-                                <div style="color:#475569;">Rating: <span style="font-weight:700;color:#0f172a;"><%= displayRating %></span>/10</div>
-                            </div>
+                                <div style="display:flex;flex-direction:column;gap:8px;">
+                                    <h2 style="margin:0;font-size:1.25rem;color:#0f172a;">
+                                        <%= home.name || home.homeName %>
+                                    </h2>
 
-                            <div style="color:#475569;">Location: <span style="font-weight:600;color:#0f172a;"><%= home.location %></span></div>
+                                    <div
+                                        style="display:flex;justify-content:space-between;align-items:center;gap:12px;">
+                                        <div style="color:#475569;font-weight:600;">INR <span
+                                                style="font-weight:700;color:#0f172a;">
+                                                <%= home.price %>
+                                            </span>
+                                            <span style="font-size:0.9rem;color:#64748b;margin-left:6px;">/night</span>
+                                        </div>
 
-                            <p style="margin:0;color:#64748b;font-size:0.95rem;">Listing #<%= index + 1 %> added to the guest-ready collection.</p>
-                        </div>
-                        <button class="book-btn">Book Now</button>
+                                        <div style="color:#475569;">Rating: <span
+                                                style="font-weight:700;color:#0f172a;">
+                                                <%= displayRating %>
+                                            </span>/10</div>
+                                    </div>
+
+                                    <div style="color:#475569;">Location: <span style="font-weight:600;color:#0f172a;">
+                                            <%= home.location %>
+                                        </span></div>
+
+                                    <p style="margin:0;color:#64748b;font-size:0.95rem;">Listing #<%= index + 1 %> added
+                                            to
+                                            the guest-ready collection.</p>
+                                </div>
+                                <button class="book-btn">Book Now</button>
+                        </a>
                     </article>
                     <% }) %>
             </section>
@@ -195,6 +240,6 @@
                 </div>
                 <% } %>
     </main>
-</body>
+    </body>
 
 </html>

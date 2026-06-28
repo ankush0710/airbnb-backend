@@ -11,7 +11,8 @@ hostRouter.get("/add-home", hostController.getAddHome);
 // import controller for post add home 
 hostRouter.post("/add-home", hostController.postAddHome);
 
-
+//import controller for host home list
+hostRouter.get("/host-home-list", hostController.getHomeList);
 module.exports = hostRouter;
 
 
