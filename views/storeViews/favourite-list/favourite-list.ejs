@@ -183,9 +183,9 @@
             <p>hey, This is your favourite list</p>
         </section>
 
-        <% if (homesData && homesData.length> 0) { %>
+        <% if (favouriteHomes && favouriteHomes.length> 0) { %>
             <section class="cards">
-                <% homesData.forEach((home, index)=> { %>
+                <% favouriteHomes.forEach((home, index)=> { %>
                     <article class="card">
                         <% const displayRating=(home.ratings !==undefined && !isNaN(Number(home.ratings))) ?
                             Number(home.ratings).toFixed(1) : (home.ratings || 'N/A' ); %>
@@ -222,7 +222,6 @@
                                 <p style="margin:0;color:#64748b;font-size:0.95rem;">Listing #<%= index + 1 %> added to
                                         the guest-ready collection.</p>
                             </div>
-                            <button class="book-btn">Book Now</button>
                     </article>
                     <% }) %>
             </section>

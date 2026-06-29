@@ -117,35 +117,7 @@
             font-size: 1rem;
         }
 
-        .actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.85rem;
-        }
-
-        .btn {
-            text-decoration: none;
-            padding: 0.8rem 1.2rem;
-            border-radius: 999px;
-            font-weight: 700;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-        }
-
-        .btn-primary {
-            background: #ef4444;
-            color: #ffffff;
-            box-shadow: 0 10px 20px rgba(239, 68, 68, 0.2);
-        }
-
-        .btn-secondary {
-            background: #f8fafc;
-            color: #334155;
-            border: 1px solid #e2e8f0;
-        }
+        
 
         @media (max-width: 860px) {
             .detail-grid {
@@ -161,34 +133,43 @@
 
 <%- include('../../partials/nav') %>
 
-<main class="container">
-    <section class="detail-card">
-        <a class="back-link" href="/">← Back to Home</a>
+    <main class="container">
+        <header style="margin-bottom: 1.5rem;">
+            <h1 style="text-align: center; margin:0; font-size: clamp(2rem, 3vw, 2.8rem); color:#0f172a;">Home details
+            </h1>
+        </header>
 
-        <div class="detail-grid">
-            <div class="image-panel">
-                <img src="<%= homes.imageUrl %>" alt="<%= homeName %>" />
-            </div>
+        <section class="detail-card">
+            <a class="back-link" href="/">← Back to Home</a>
 
-            <div class="info-panel">
-                <div class="pill-row">
-                    <% const displayRating=(homes.ratings !==undefined && !isNaN(Number(homes.ratings))) ?
-                        Number(homes.ratings).toFixed(1) : (homes.ratings || 'N/A' ); %>
-                    <span class="pill">⭐ <%= displayRating %>/10</span>
-                    <span class="pill">📍 <%= homes.location %></span>
+            <div class="detail-grid">
+                <div class="image-panel">
+                    <img src="<%= homes.imageUrl %>" alt="<%= homeName %>" />
                 </div>
 
-                <h1><%= homeName %></h1>
-                <p class="price">From <strong>₹<%= homes.price %></strong> / night</p>
-                <p class="description"><%= description %></p>
+                <div class="info-panel">
+                    <div class="pill-row">
+                        <% const displayRating=(homes.ratings !==undefined && !isNaN(Number(homes.ratings))) ?
+                            Number(homes.ratings).toFixed(1) : (homes.ratings || 'N/A' ); %>
+                            <span class="pill">⭐ <%= displayRating %>/10</span>
+                            <span class="pill">📍 <%= homes.location %></span>
+                    </div>
 
-                <div class="actions">
-                    <a class="btn btn-primary" href="/favourite-list">♡ Add to favourites</a>
-                    <a class="btn btn-secondary" href="/">Back to home</a>
+                    <h1>
+                        <%= homeName %>
+                    </h1>
+                    <p class="price">From <strong>₹<%= homes.price %></strong> / night</p>
+                    <p class="description">
+                        <%= description %>
+                    </p>
+
+                    <div>
+                        <%- include("../../partials/favourites") %>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
-</main>
-</body>
+        </section>
+    </main>
+    </body>
+
 </html>

@@ -3,7 +3,8 @@ const path = require("path");
 const rootDir = require("../utils/pathUtils");
 
 // to capture the entire data form body like a fake database
-const homesData = [];
+// const homesData = [];
+const homesDataPath = path.join(rootDir, "data", "homes.json");
 
 module.exports = class Home {
   constructor(name, price, location, ratings, imageUrl) {
@@ -20,7 +21,6 @@ module.exports = class Home {
     console.log("hone.js data:", this);
     Home.fetchAll((homesData) => {
       homesData.push(this);
-      const homesDataPath = path.join(rootDir, "data", "homes.json");
       fs.writeFile(homesDataPath, JSON.stringify(homesData), (err) => {
         console.log("File Write Concluded", err);
       });
@@ -28,18 +28,15 @@ module.exports = class Home {
   }
 
   static fetchAll(callback) {
-    const homesDataPath = path.join(rootDir, "data", "homes.json");
     fs.readFile(homesDataPath, (err, data) => {
       callback(!err ? JSON.parse(data) : []);
     });
   }
 
   static findById(homeId, callback) {
-    const homesDataPath = path.join(rootDir, "data", "homes.json");
     this.fetchAll((homes) => {
       const selectedHome = homes.find((home) => home.id === homeId);
       callback(selectedHome);
-    })
-
+    });
   }
 };

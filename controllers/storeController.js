@@ -2,6 +2,7 @@
 const path = require("path");
 const Home = require("../models/home");
 const { homedir } = require("os");
+const Favourite = require("../models/favourite");
 
 //===============================================================//
 // controller for home route
@@ -28,14 +29,31 @@ exports.getReserve = (req, res, next) => {
 
 //=================================================================//
 // controller for favourites route
-exports.getFavouites = (req, res, next) => {
-  Home.fetchAll((homesData) => {
+exports.getFavouitesList = (req, res, next) => {
+ Favourite.getFavourites(favourite => {
+   Home.fetchAll((homesData) => {
+    const favouriteHomes = homesData.filter(home => favourite.includes(home.id));
     res.render("storeViews/favourite-list/favourite-list", {
-      homesData: homesData,
-      currentPage: "favourite-list",
+      favouriteHomes: favouriteHomes,
+      currentPage: "favourites",
     });
   });
+ })
 };
+
+//===============================================================//
+// controller for home Favourites route
+exports.postAddToFavourite = (req, res, next) => {
+  console.log("came to add to favourite", req.body);
+  Favourite.addToFavourite(req.body.id, err => {
+    if(err) {
+    console.log("error while remarking", err);
+    }
+     res.redirect("/favourites");
+
+  })
+};
+
 
 //===============================================================//
 // controller for home Details route
@@ -52,7 +70,7 @@ exports.getHomeDetails = (req, res, next) => {
 
       res.render("storeViews/home-details/home-details", {
         homes: homes,
-        homeName: homeName,
+         homeName: homeName,
         description: description,
         currentPage: "Home",
       });
