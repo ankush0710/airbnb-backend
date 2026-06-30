@@ -155,7 +155,7 @@
             justify-content: flex-start;
             gap:10px;
         }
-        .btn-container button {
+        .btn-container .delete-btn, .edit-btn {
             width: 100%;
             padding: 0.50rem 1.25rem;
             margin-top: 8px;
@@ -164,15 +164,23 @@
             font-size: 1.25rem;
             font-weight: 500;
             cursor: pointer;
-            
+            transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+        }
+        .btn-container .delete-btn:hover, .edit-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 16px rgba(15, 23, 42, 0.12);
         }
         .edit-btn{
-            background-color: #334155;
+            background-color: #659287;
+            border-color: #4f7a6f;
             color: #ffffff;
+            text-align: center;
+            text-decoration: none;
         }
         .delete-btn{
-            background-color: #ef4444;
-            color: #000000;
+            background-color: #dc2626;
+            border-color: #b91c1c;
+            color: #ffffff;
         }
     </style>
 </head>
@@ -192,8 +200,7 @@
                             Number(home.ratings).toFixed(1) : (home.ratings || 'N/A' ); %>
                             <div class="image-wrapper">
                                 <img src="<%= home.imageUrl %>" alt="<%= home.name || home.homeName %>"
-                                    class="home-image" />
-                                <button class="favorite-btn" aria-label="Add to favorites">❤</button>
+                                    class="home-image" />   
                             </div>
                             <hr
                                 style="height: 4px; background-color: rgba(29,78,216,0.12); border: none; margin: 10px 0;">
@@ -224,8 +231,8 @@
                                         the guest-ready collection.</p>
                             </div>
                             <div class="btn-container">
-                                <button class="edit-btn">Edit</button>
-                            <button class="delete-btn">Delete</button>
+                                <a href="/host/edit-home/<%=home.id%>?editing=true" class="edit-btn">Edit</a>
+                                <button class="delete-btn">Delete</button>
                             </div>
 
                     </article>
