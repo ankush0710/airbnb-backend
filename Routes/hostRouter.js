@@ -16,6 +16,10 @@ hostRouter.get("/host-home-list", hostController.getHomeList);
 
 //import controller for edit home based on id
 hostRouter.get("/edit-home/:homeId", hostController.getEditHome);
+
+//import controller for edit home based on id
+hostRouter.post("/edit-home", hostController.postEditHome);
+
 module.exports = hostRouter;
 
 

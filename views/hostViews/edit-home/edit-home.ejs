@@ -94,6 +94,7 @@
             <h2><%= editing ? "Edit Your Home" : "Add Your Home" %></h2>
             <p class="helper"><%=editing ? 'Edit':'Enter'%> your home's details to <%=editing ? 'change' :'add'%> it to the listings.</p>
             <form action="/host/<%= editing ? 'edit-home' : 'add-home' %>" method="POST" class="form-row">
+                <input type="hidden" name="id" value="<%=editing ? home.id : ''%>" />
                 <input type="text" name="name" placeholder="Enter your home title (e.g. Cozy Studio)" value="<%=editing ? home.name : '' %>" required />
                 <input type="number" name="price" placeholder="Enter price per night" value="<%=editing ? home.price : '' %>" required />
                 <input type="text" name="location" placeholder="Enter your home location" value="<%=editing ? home.location : '' %>" required />

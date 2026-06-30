@@ -7,8 +7,9 @@ const rootDir = require("../utils/pathUtils");
 const homesDataPath = path.join(rootDir, "data", "homes.json");
 
 module.exports = class Home {
-  constructor(name, price, location, ratings, imageUrl) {
+  constructor(id, name, price, location, ratings, imageUrl) {
     // Use `name` as the canonical title field. Keep `homeName` for legacy compatibility handled in views.
+    this.id = id
     this.name = name;
     this.price = price;
     this.location = location;
@@ -17,13 +18,16 @@ module.exports = class Home {
   }
 
   save() {
-    this.id = Math.random().toString();
-    console.log("hone.js data:", this);
     Home.fetchAll((homesData) => {
-      homesData.push(this);
-      fs.writeFile(homesDataPath, JSON.stringify(homesData), (err) => {
-        console.log("File Write Concluded", err);
-      });
+      if (this.id) {
+        homesData = homesData.map(home => home.id === this.id ? this : home);
+      } else {
+        this.id = Math.random().toString();
+        homesData.push(this);
+      }
+      fs.writeFile(homesDataPath, JSON.stringify(homesData), err => {
+          console.log("File Write Concluded", err);
+        });
     });
   }
 

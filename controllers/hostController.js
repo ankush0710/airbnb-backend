@@ -21,10 +21,8 @@ exports.getEditHome = (req, res, next) => {
   const editing = req.query.editing === "true";
   Home.findById(homeId, (home) => {
     if (!home) {
-      console.log("Home not found for editing");
       res.redirect("host/host-home-list");
     }
-    console.log(homeId, editing, home);
     res.render("hostViews/edit-home/edit-home", {
       pageTitle: "Edit Your Home",
       currentPage: "host-homes",
@@ -37,16 +35,19 @@ exports.getEditHome = (req, res, next) => {
 //===================================================//
 //controller for handling post homes requests
 exports.postAddHome = (req, res, next) => {
-  console.log("POST /added-home controller called");
-  console.log("body-data:", req.body);
   const { name, price, location, ratings, imageUrl, homeName } = req.body;
   const home = new Home(name, price, location, ratings, imageUrl);
-  console.log("home-data: ", home);
   home.save();
-  res.render("hostViews/home-added/homeAddedMessage", {
-    currentPage: "homeAddedMessage",
-  });
+  res.redirect("/host/host-home-list");
 };
+
+exports.postEditHome = (req, res, next) => {
+  const { id, name, price, location, ratings, imageUrl, homeName } = req.body;
+  const home = new Home(id, name, price, location, ratings, imageUrl);
+  home.id = id;
+  home.save();
+  res.redirect("/host/host-home-list");
+}
 
 exports.getHomeList = (req, res, next) => {
   Home.fetchAll((homesData) => {
