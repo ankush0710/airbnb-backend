@@ -1,7 +1,7 @@
 [
     {
         "id": "1",
-        "homeName": "My Home",
+        "name": "My Home",
         "price": "999",
         "location": "banguluru",
         "ratings": "8",
@@ -9,7 +9,7 @@
     },
     {
         "id": "2",
-        "homeName": "Antilia",
+        "name": "Antilia",
         "price": "8555",
         "location": "Raipur",
         "ratings": "9",
@@ -17,7 +17,7 @@
     },
     {
         "id": "3",
-        "homeName": "Yas chandra Niwas",
+        "name": "Yas chandra Niwas",
         "price": "9999",
         "location": "Raipur",
         "ratings": 5.6,

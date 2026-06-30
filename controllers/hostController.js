@@ -10,6 +10,7 @@ exports.getAddHome = (req, res, next) => {
   res.render("hostViews/edit-home/edit-home", {
     pageTitle: "Add Home to airbnb",
     currentPage: "addHome",
+    editing: false,
   });
 };
 
@@ -17,12 +18,19 @@ exports.getAddHome = (req, res, next) => {
 //  controller for handling get requests for add homes data
 exports.getEditHome = (req, res, next) => {
   const homeId = req.params.homeId;
-  const editing = req.query.editing === "true ";
-  console.log(homeId, editing);
-  res.render("hostViews/edit-home/edit-home", {
-    pageTitle: "Edit Your Home",
-    currentPage: "host-homes",
-    editing: editing,
+  const editing = req.query.editing === "true";
+  Home.findById(homeId, (home) => {
+    if (!home) {
+      console.log("Home not found for editing");
+      res.redirect("host/host-home-list");
+    }
+    console.log(homeId, editing, home);
+    res.render("hostViews/edit-home/edit-home", {
+      pageTitle: "Edit Your Home",
+      currentPage: "host-homes",
+      editing: editing,
+      home: home,
+    });
   });
 };
 
