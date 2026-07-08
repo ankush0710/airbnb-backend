@@ -32,3 +32,7 @@ const PORT = 3001;
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 })
+
+
+
+// mongodb+srv://ankushkurvey053:<db_password>@airbnb-data.7kvmliq.mongodb.net/?appName=airbnb-data
