@@ -1,15 +1,15 @@
-
 //External module
 const express = require("express");
 const app = express();
-const path = require('path');
+const path = require("path");
 
 //Local Modules
 const storeRouter = require("./Routes/storeRouter");
 const hostRouter = require("./Routes/hostRouter");
 const errorController = require("./controllers/errors");
+const mongoConnect = require("./utils/databaseUtils");
 
-app.set('view engine', 'ejs');
+app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 //To add the req into the req.body
 //It reads the data and makes it available as a JavaScript object on req.body
@@ -23,16 +23,17 @@ app.use((req, res, next) => {
 
 app.use(express.urlencoded({ extended: true }));
 app.use(storeRouter);
-app.use('/host', hostRouter);
+app.use("/host", hostRouter);
 
 //404 error page
 app.use(errorController.pageNotFound);
 
 const PORT = 3001;
-app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
-})
-
-
+mongoConnect((client) => {
+  console.log(client);
+  app.listen(PORT, () => {
+    console.log(`Server running at http://localhost:${PORT}`);
+  });
+});
 
 // mongodb+srv://ankushkurvey053:<db_password>@airbnb-data.7kvmliq.mongodb.net/?appName=airbnb-data
