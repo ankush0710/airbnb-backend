@@ -1,3 +1,4 @@
+const { ObjectId } = require("mongodb");
 const { getDb } = require("../utils/databaseUtils");
 
 module.exports = class Home {
@@ -14,7 +15,20 @@ module.exports = class Home {
   }
   save() {
     const db = getDb();
+    if(this._id){
+      const updateFields = {
+        name: this.name,
+        price: this.price,
+        location: this.location,
+        ratings: this.ratings,
+        imageUrl: this.imageUrl
+      }
+      return db.collection('homes').updateOne({_id: new ObjectId(String(this._id))}, {$set: updateFields})
+
+    }
+    else{
     return db.collection("homes").insertOne(this);
+    }
   }
 
   static fetchAll(){
@@ -24,7 +38,12 @@ module.exports = class Home {
 
   static findById(homeId){
     const db = getDb();
-    return db.collection('homes').find({_id: homeId}).next();
+    return db.collection('homes').find({_id: new ObjectId(String(homeId))}).next();
 
+  }
+
+  static deleteById(homeId){
+    const db = getDb();
+    return db.collection('homes').deleteOne({_id: new ObjectId(String(homeId))}).next();
   }
 };

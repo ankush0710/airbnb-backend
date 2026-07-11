@@ -44,10 +44,11 @@ exports.postAddHome = (req, res, next) => {
 };
 
 exports.postEditHome = (req, res, next) => {
-  const { name, price, location, ratings, imageUrl, homeName } = req.body;
-  const home = new Home(id, name, price, location, ratings, imageUrl);
-  home._id = id;
-  home.save();
+  const { id, name, price, location, ratings, imageUrl, homeName } = req.body;
+  const home = new Home(name, price, location, ratings, imageUrl, id);
+  home.save().then(result => {
+    console.log('Home Updated: ', result);
+  });
   res.redirect("/host/host-home-list");
 }
 
