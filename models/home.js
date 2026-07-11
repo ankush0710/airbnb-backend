@@ -1,46 +1,21 @@
-const fs = require("fs");
-const path = require("path");
-const rootDir = require("../utils/pathUtils");
-
-// to capture the entire data form body like a fake database
-// const homesData = [];
-const homesDataPath = path.join(rootDir, "data", "homes.json");
+const { getDb } = require("../utils/databaseUtils");
 
 module.exports = class Home {
-  constructor(id, name, price, location, ratings, imageUrl) {
+  constructor(name, price, location, ratings, imageUrl) {
     // Use `name` as the canonical title field. Keep `homeName` for legacy compatibility handled in views.
-    this.id = id
     this.name = name;
     this.price = price;
     this.location = location;
     this.ratings = ratings;
     this.imageUrl = imageUrl;
   }
-
   save() {
-    Home.fetchAll((homesData) => {
-      if (this.id) {
-        homesData = homesData.map(home => home.id === this.id ? this : home);
-      } else {
-        this.id = Math.random().toString();
-        homesData.push(this);
-      }
-      fs.writeFile(homesDataPath, JSON.stringify(homesData), err => {
-          console.log("File Write Concluded", err);
-        });
-    });
+    const db = getDb();
+    return db.collection("homes").insertOne(this);
   }
 
-  static fetchAll(callback) {
-    fs.readFile(homesDataPath, (err, data) => {
-      callback(!err ? JSON.parse(data) : []);
-    });
-  }
-
-  static findById(homeId, callback) {
-    this.fetchAll((homes) => {
-      const selectedHome = homes.find((home) => home.id === homeId);
-      callback(selectedHome);
-    });
+  static fetchAll(){
+    const db = getDb();
+    return db.collection('homes').find().toArray();
   }
 };

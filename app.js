@@ -7,7 +7,7 @@ const path = require("path");
 const storeRouter = require("./Routes/storeRouter");
 const hostRouter = require("./Routes/hostRouter");
 const errorController = require("./controllers/errors");
-const mongoConnect = require("./utils/databaseUtils");
+const {mongoConnect} = require("./utils/databaseUtils");
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -35,5 +35,3 @@ mongoConnect((client) => {
     console.log(`Server running at http://localhost:${PORT}`);
   });
 });
-
-// mongodb+srv://ankushkurvey053:<db_password>@airbnb-data.7kvmliq.mongodb.net/?appName=airbnb-data

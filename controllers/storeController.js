@@ -7,7 +7,7 @@ const Favourite = require("../models/favourite");
 //===============================================================//
 // controller for home route
 exports.getHomes = (req, res, next) => {
-  Home.fetchAll((homesData) => {
+  Home.fetchAll().then(homesData => {
     res.render("storeViews/home-list/home-list", {
       homesData: homesData,
       currentPage: "Home",
@@ -31,7 +31,7 @@ exports.getReserve = (req, res, next) => {
 // controller for favourites route
 exports.getFavouitesList = (req, res, next) => {
  Favourite.getFavourites(favourite => {
-   Home.fetchAll((homesData) => {
+   Home.fetchAll().then(homesData => {
     const favouriteHomes = homesData.filter(home => favourite.includes(home.id));
     res.render("storeViews/favourite-list/favourite-list", {
       favouriteHomes: favouriteHomes,

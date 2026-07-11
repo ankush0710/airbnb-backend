@@ -37,12 +37,14 @@ exports.getEditHome = (req, res, next) => {
 exports.postAddHome = (req, res, next) => {
   const { name, price, location, ratings, imageUrl, homeName } = req.body;
   const home = new Home(name, price, location, ratings, imageUrl);
-  home.save();
+  home.save().then(()=>{
+    console.log("home saved successfully...")
+  });
   res.redirect("/host/host-home-list");
 };
 
 exports.postEditHome = (req, res, next) => {
-  const { id, name, price, location, ratings, imageUrl, homeName } = req.body;
+  const { name, price, location, ratings, imageUrl, homeName } = req.body;
   const home = new Home(id, name, price, location, ratings, imageUrl);
   home.id = id;
   home.save();
@@ -50,7 +52,7 @@ exports.postEditHome = (req, res, next) => {
 }
 
 exports.getHomeList = (req, res, next) => {
-  Home.fetchAll((homesData) => {
+  Home.fetchAll().then(homesData => {
     res.render("hostViews/host-home-list/host-home-list", {
       homesData: homesData,
       currentPage: "host-home-list",
