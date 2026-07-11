@@ -169,7 +169,7 @@
             <section class="cards">
                 <% homesData.forEach((home, index)=> { %>
                     <article class="card home-list-favourites">
-                        <a href="/homes/<%=home.id%>" style="cursor: pointer; text-decoration: none;">
+                        <a href="/homes/<%=home._id%>" style="cursor: pointer; text-decoration: none;">
 
                             <% const displayRating=(home.ratings !==undefined && !isNaN(Number(home.ratings))) ?
                                 Number(home.ratings).toFixed(1) : (home.ratings || 'N/A' ); %>
