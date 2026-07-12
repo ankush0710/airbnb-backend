@@ -7,7 +7,7 @@ const Favourite = require("../models/favourite");
 //===============================================================//
 // controller for home route
 exports.getHomes = (req, res, next) => {
-  Home.fetchAll().then(homesData => {
+  Home.fetchAll().then((homesData) => {
     res.render("storeViews/home-list/home-list", {
       homesData: homesData,
       currentPage: "Home",
@@ -30,38 +30,46 @@ exports.getReserve = (req, res, next) => {
 //=================================================================//
 // controller for favourites route
 exports.getFavouitesList = (req, res, next) => {
- Favourite.getFavourites(favourite => {
-   Home.fetchAll().then(homesData => {
-    const favouriteHomes = homesData.filter(home => favourite.includes(home._id));
-    res.render("storeViews/favourite-list/favourite-list", {
-      favouriteHomes: favouriteHomes,
-      currentPage: "favourites",
+  Favourite.getFavourites().then((favourites) => {
+    favourites = favourites.map((fav) => fav.houseId);
+    Home.fetchAll().then((homesData) => {
+      console.log(favourites, homesData);
+      const favouriteHomes = homesData.filter((home) =>
+        favourites.includes(home._id.toString()),
+      );
+      res.render("storeViews/favourite-list/favourite-list", {
+        favouriteHomes: favouriteHomes,
+        pageTitle: "My Favourites",
+        currentPage: "favourites",
+
+      })
     });
   });
- })
 };
 
 //===============================================================//
 // controller for home Favourites route
 exports.postAddToFavourite = (req, res, next) => {
-  console.log("came to add to favourite", req.body);
-  Favourite.addToFavourite(req.body.id, err => {
-    if(err) {
-    console.log("error while remarking", err);
-    }
-     res.redirect("/favourites");
-
-  })
+  const houseId = req.body.id;
+  const fav = new Favourite(houseId);
+  fav
+    .save()
+    .then(result => {
+      console.log("added to favourite: ", result);
+    })
+    .catch(err => {
+      console.log("Error while adding to the favourite: ", err);
+    })
+    .finally(() => res.redirect("/favourites"));
 };
-
 
 //===============================================================//
 // controller for home Details route
 exports.getHomeDetails = (req, res, next) => {
   const homeId = req.params.homeId;
-  Home.findById(homeId).then(homes => {
-    console.log(homeId)
-    if (!homes) { 
+  Home.findById(homeId).then((homes) => {
+    console.log(homeId);
+    if (!homes) {
       res.redirect("/");
     } else {
       const homeName = homes.name || homes.homeName || "Lovely Home";
@@ -71,7 +79,7 @@ exports.getHomeDetails = (req, res, next) => {
 
       res.render("storeViews/home-details/home-details", {
         homes: homes,
-         homeName: homeName,
+        homeName: homeName,
         description: description,
         currentPage: "Home",
       });
