@@ -190,7 +190,7 @@
                         <% const displayRating=(home.ratings !==undefined && !isNaN(Number(home.ratings))) ?
                             Number(home.ratings).toFixed(1) : (home.ratings || 'N/A' ); %>
                             <div class="image-wrapper">
-                                <img src="<%= home.imageUrl %>" alt="<%= home.name || home.homeName %>"
+                                <img src="<%= home.imageURL %>" alt="<%= home.name || home.houseName %>"
                                     class="home-image" />
                                 <button class="favorite-btn" aria-label="Add to favorites">❤</button>
                             </div>
@@ -199,7 +199,7 @@
 
                             <div style="display:flex;flex-direction:column;gap:8px;">
                                 <h2 style="margin:0;font-size:1.25rem;color:#0f172a;">
-                                    <%= home.name || home.homeName %>
+                                    <%= home.name || home.houseName %>
                                 </h2>
 
                                 <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;">
