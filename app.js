@@ -7,7 +7,7 @@ const path = require("path");
 const storeRouter = require("./Routes/storeRouter");
 const hostRouter = require("./Routes/hostRouter");
 const errorController = require("./controllers/errors");
-const {mongoConnect} = require("./utils/databaseUtils");
+const {default:mongoose} = require('mongoose');
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -29,9 +29,12 @@ app.use("/host", hostRouter);
 app.use(errorController.pageNotFound);
 
 const PORT = 3001;
-mongoConnect((client) => {
-  console.log(client);
+const db_path = "mongodb+srv://ankushkurvey053:aNkush123@airbnb-data.sgfhvxo.mongodb.net/airbnb-data?appName=airbnb-data"
+mongoose.connect(db_path).then(() => {
+  console.log("Connect to MongoDB and Mongoose");
   app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
+    console.log(`server is running at http://localhost:${PORT}`);
   });
+}).catch((err) => {
+  console.log("Error while connecting to Mongoose", err);
 });
