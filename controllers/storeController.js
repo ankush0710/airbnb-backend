@@ -30,8 +30,8 @@ exports.getReserve = (req, res, next) => {
 //=================================================================//
 // controller for favourites route
 exports.getFavouitesList = (req, res, next) => {
-  Favourite.getFavourites().then((favourites) => {
-    favourites = favourites.map((fav) => fav.houseId);
+  Favourite.find().then((favourites) => {
+    favourites = favourites.map((fav) => fav.houseId.toString());
     Home.find().then((homesData) => {
       console.log(favourites, homesData);
       const favouriteHomes = homesData.filter((home) =>
@@ -51,17 +51,22 @@ exports.getFavouitesList = (req, res, next) => {
 // controller for home Favourites route
 exports.postAddToFavourite = (req, res, next) => {
   const houseId = req.body.id;
-  const fav = new Favourite(houseId);
-  fav
-    .save()
-    .then(result => {
-      console.log("added to favourite: ", result);
-    })
-    .catch(err => {
-      console.log("Error while adding to the favourite: ", err);
-    })
-    .finally(() => res.redirect("/favourites"));
-};
+  Favourite.findOne({houseId: houseId}).then((fav) => {
+    if(fav){
+      console.log("Already marked as favourites");
+    }
+    else{
+      const fav = new Favourite({houseId: houseId});
+      fav.save().then((result) => {
+        console.log("Home added to favourites");
+      })
+    }
+    res.redirect("/favourites");
+  }).catch((err) =>{
+    console.log("Error While Add to favourites", err);
+  });
+}
+
 
 //===============================================================//
 // controller for home Details route
@@ -85,4 +90,4 @@ exports.getHomeDetails = (req, res, next) => {
       });
     }
   });
-};
+}
