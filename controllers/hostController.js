@@ -35,25 +35,33 @@ exports.getEditHome = (req, res, next) => {
 //===================================================//
 //controller for handling post homes requests
 exports.postAddHome = (req, res, next) => {
-  const { name, price, location, ratings, imageUrl, homeName } = req.body;
-  const home = new Home(name, price, location, ratings, imageUrl);
-  home.save().then(()=>{
-    console.log("home saved successfully...")
+  const { houseName, price, location, ratings, imageURL, description } = req.body;
+  const home = new Home({ houseName, price, location, ratings, imageURL, description });
+  home.save().then(() => {
+    console.log("home saved successfully...");
   });
   res.redirect("/host/host-home-list");
 };
 
 exports.postEditHome = (req, res, next) => {
-  const { id, name, price, location, ratings, imageUrl, homeName } = req.body;
-  const home = new Home(name, price, location, ratings, imageUrl, id);
-  home.save().then(result => {
+  const { id, houseName, price, location, ratings, imageURL, homeName } = req.body;
+  Home.findById(id).then((home) => {
+    home.houseName = houseName;
+    home.price = price;
+    home.location = location;
+    home.ratings = ratings;
+    home.imageURL = imageURL;
+    home.save().then(result => {
     console.log('Home Updated: ', result);
   });
   res.redirect("/host/host-home-list");
-}
+  }).catch((err) => {
+    console.log("Error while finding home", err);
+  })
+};
 
 exports.getHomeList = (req, res, next) => {
-  Home.fetchAll().then(homesData => {
+  Home.find().then(homesData => {
     res.render("hostViews/host-home-list/host-home-list", {
       homesData: homesData,
       currentPage: "host-home-list",

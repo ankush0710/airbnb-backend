@@ -1,49 +1,27 @@
-const { ObjectId } = require("mongodb");
-const { getDb } = require("../utils/databaseUtils");
+const mongoose = require('mongoose');
 
-module.exports = class Home {
-  constructor(name, price, location, ratings, imageUrl, _id) {
-    // Use `name` as the canonical title field. Keep `homeName` for legacy compatibility handled in views.
-    this.name = name;
-    this.price = price;
-    this.location = location;
-    this.ratings = ratings;
-    this.imageUrl = imageUrl;
-    if(_id){
-      this._id = _id;
-    }
-  }
-  save() {
-    const db = getDb();
-    if(this._id){
-      const updateFields = {
-        name: this.name,
-        price: this.price,
-        location: this.location,
-        ratings: this.ratings,
-        imageUrl: this.imageUrl
-      }
-      return db.collection('homes').updateOne({_id: new ObjectId(String(this._id))}, {$set: updateFields})
+const homeSchema = new mongoose.Schema({
+  houseName: {
+    type: String,
+    required: true,
+  },
+  price: {
+    type: Number,
+    required: true,
+  },
+  location: {
+    type: String,
+    required: true,
+  },
+  ratings: {
+    type: Number,
+    required: true,
+  },
+  imageURL: {
+    type: String,
+    required: true,
+  },
+  description: String,
+});
 
-    }
-    else{
-    return db.collection("homes").insertOne(this);
-    }
-  }
-
-  static fetchAll(){
-    const db = getDb();
-    return db.collection('homes').find().toArray();
-  }
-
-  static findById(homeId){
-    const db = getDb();
-    return db.collection('homes').find({_id: new ObjectId(String(homeId))}).next();
-
-  }
-
-  static deleteById(homeId){
-    const db = getDb();
-    return db.collection('homes').deleteOne({_id: new ObjectId(String(homeId))}).next();
-  }
-};
+module.exports = mongoose.model('Home', homeSchema);

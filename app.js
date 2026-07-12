@@ -29,7 +29,7 @@ app.use("/host", hostRouter);
 app.use(errorController.pageNotFound);
 
 const PORT = 3001;
-const db_path = "mongodb+srv://ankushkurvey053:aNkush123@airbnb-data.sgfhvxo.mongodb.net/airbnb-data?appName=airbnb-data"
+const db_path = "mongodb+srv://ankushkurvey053:aNkush123@airbnb-database.az5xv5b.mongodb.net/"
 mongoose.connect(db_path).then(() => {
   console.log("Connect to MongoDB and Mongoose");
   app.listen(PORT, () => {
