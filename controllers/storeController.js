@@ -11,6 +11,7 @@ exports.getHomes = (req, res, next) => {
     res.render("storeViews/home-list/home-list", {
       homesData: homesData,
       currentPage: "Home",
+      isLoggedIn: req.isLoggedIn,
     });
   });
 };
@@ -18,13 +19,18 @@ exports.getHomes = (req, res, next) => {
 //=================================================================//
 // controller for bookings routes
 exports.getBookings = (req, res, next) => {
-  res.render("storeViews/booking/bookings", { currentPage: "bookings" });
+  res.render("storeViews/booking/bookings", { 
+    currentPage: "bookings", 
+    isLoggedIn: req.isLoggedIn,});
 };
 
 //================================================================//
 // controller for reserve route
 exports.getReserve = (req, res, next) => {
-  res.render("storeViews/reserve/reserve", { currentPage: "reserve" });
+  res.render("storeViews/reserve/reserve", { 
+    currentPage: "reserve",
+    isLoggedIn: req.isLoggedIn, 
+  });
 };
 
 //=================================================================//
@@ -41,7 +47,7 @@ exports.getFavouitesList = (req, res, next) => {
         favouriteHomes: favouriteHomes,
         pageTitle: "My Favourites",
         currentPage: "favourites",
-
+        isLoggedIn: req.isLoggedIn,
       })
     });
   });
@@ -87,6 +93,7 @@ exports.getHomeDetails = (req, res, next) => {
         homeName: homeName,
         description: description,
         currentPage: "Home",
+        isLoggedIn: req.isLoggedIn,
       });
     }
   });

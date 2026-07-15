@@ -11,6 +11,7 @@ exports.getAddHome = (req, res, next) => {
     pageTitle: "Add Home to airbnb",
     currentPage: "addHome",
     editing: false,
+    isLoggedIn: req.isLoggedIn,
   });
 };
 
@@ -28,6 +29,7 @@ exports.getEditHome = (req, res, next) => {
       currentPage: "host-homes",
       editing: editing,
       home: home,
+      isLoggedIn: req.isLoggedIn,
     });
   });
 };
@@ -65,6 +67,7 @@ exports.getHomeList = (req, res, next) => {
     res.render("hostViews/host-home-list/host-home-list", {
       homesData: homesData,
       currentPage: "host-home-list",
+      isLoggedIn: req.isLoggedIn,
     });
   });
 };

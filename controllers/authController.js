@@ -1,5 +1,8 @@
 exports.getLogin = (req, res, next) => {
-    res.render('auth/login/login', {pageTitle: "Login",})
+    res.render('auth/login/login', {
+        pageTitle: "Login",
+        isLoggedIn: false,
+    })
 }
 
 exports.postLogin = (req, res, next) => {
