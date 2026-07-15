@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        linear-gradient(rgba(15, 23, 42, 0.55), rgba(15, 23, 42, 0.55)),
+        url('https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #0f172a;
+    }
+
+    .login-card {
+      width: min(92%, 440px);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
+    }
+
+    .login-card h2 {
+      margin: 0 0 0.5rem;
+      font-size: 1.8rem;
+      color: #233d4d;
+    }
+
+    .login-card p {
+      margin: 0 0 1.4rem;
+      color: #64748b;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      font-weight: 600;
+      color: #334155;
+    }
+
+    .form-group input {
+      padding: 0.9rem 1rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .form-group input:focus {
+      border-color: #659287;
+      box-shadow: 0 0 0 3px rgba(101, 146, 135, 0.2);
+    }
+
+    .login-btn {
+      width: 100%;
+      border: none;
+      padding: 0.9rem 1rem;
+      margin-top: 0.5rem;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #659287, #4f766b);
+      color: white;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .login-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(101, 146, 135, 0.25);
+    }
+
+    .register-link {
+      display: block;
+      text-align: center;
+      margin-top: 1rem;
+      color: #659287;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .register-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-card">
+    <h2>Welcome back</h2>
+    <p>Sign in to continue your stay with us.</p>
+
+    <form action="/login" method="POST">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Enter email or username" required>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter password" required>
+      </div>
+
+      <button type="submit" class="login-btn">Login</button>
+    </form>
+
+    <a href="/register" class="register-link">Don’t have an account? Register</a>
+  </div>
+</body>
+</html>
