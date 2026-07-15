@@ -8,6 +8,7 @@ const storeRouter = require("./Routes/storeRouter");
 const hostRouter = require("./Routes/hostRouter");
 const errorController = require("./controllers/errors");
 const {default:mongoose} = require('mongoose');
+const authRouter = require("./Routes/authRouter");
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -22,6 +23,7 @@ app.use((req, res, next) => {
 });
 
 app.use(express.urlencoded({ extended: true }));
+app.use(authRouter);
 app.use(storeRouter);
 app.use("/host", hostRouter);
 
