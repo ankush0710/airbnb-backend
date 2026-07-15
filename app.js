@@ -16,16 +16,24 @@ app.set("views", path.join(__dirname, "views"));
 //It reads the data and makes it available as a JavaScript object on req.body
 // Parse URL-encoded bodies (as sent by HTML forms)
 
-// Request logging middleware
-app.use((req, res, next) => {
-  // console.log(`📍 ${req.method} ${req.path}`);
-  next();
-});
+// Request logging middleware 
 
 app.use(express.urlencoded({ extended: true }));
+app.use((req, res, next) => {
+  req.isLoggedIn = req.get('Cookie') ? req.get('Cookie').split('=')[1] === 'true' : false;
+  // console.log("cookie check middleware: ", req.get('Cookie'));
+  next();
+})
 app.use(authRouter);
 app.use(storeRouter);
-app.use("/host", hostRouter);
+app.use("/host", (req, res, next) => {
+  if(req.isLoggedIn){
+    next();
+  }
+  else{
+    res.redirect("/login");
+  }
+});
 
 //404 error page
 app.use(errorController.pageNotFound);
