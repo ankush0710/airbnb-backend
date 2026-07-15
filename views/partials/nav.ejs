@@ -116,7 +116,8 @@
         <nav>
             <a href="/" class="<%= currentPage === 'Home' ? 'navActiveItems' : 'navItems' %>">Home</a>
 
-            <!-- <a href="/reserve" class="<%= currentPage === 'reserve' ? 'navActiveItems' : 'navItems' %>">
+            <% if(isLoggedIn) {%>
+                <!-- <a href="/reserve" class="<%= currentPage === 'reserve' ? 'navActiveItems' : 'navItems' %>">
                 Reserve
             </a>
             
@@ -124,17 +125,20 @@
                 Bookings
             </a> -->
 
-            <a href="/favourites" class="<%= currentPage === 'favourites' ? 'navActiveItems' : 'navItems' %>">
-                Favourites
-            </a>
+                <a href="/favourites" class="<%= currentPage === 'favourites' ? 'navActiveItems' : 'navItems' %>">
+                    Favourites
+                </a>
 
-            <a href="/host/add-home" class="<%= currentPage === 'addHome' ? 'navActiveItems' : 'navItems' %>">
-                Add Home
-            </a>
+                <a href="/host/add-home" class="<%= currentPage === 'addHome' ? 'navActiveItems' : 'navItems' %>">
+                    Add Home
+                </a>
 
-            <a href="/host/host-home-list" class="<%= currentPage === 'host-home-list' ? 'navActiveItems' : 'navItems' %>">
-                Host Home List
-            </a>
+                <a href="/host/host-home-list"
+                    class="<%= currentPage === 'host-home-list' ? 'navActiveItems' : 'navItems' %>">
+                    Host Home List
+                </a>
+
+                <% } %>
         </nav>
     </div>
 
