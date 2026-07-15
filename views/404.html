@@ -13,28 +13,40 @@
             align-items: center;
             justify-content: center;
             font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background: linear-gradient(135deg, #eef2ff 0%, #f8fafc 100%);
+            background:
+                linear-gradient(135deg, rgba(101, 146, 135, 0.22), rgba(30, 41, 59, 0.15)),
+                url('https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
             color: #0f172a;
+            padding: 1rem;
         }
 
         .page-shell {
             text-align: center;
             max-width: 640px;
-            padding: 2.5rem 1.75rem;
+            padding: 2.8rem 2rem;
             border-radius: 28px;
-            background: #ffffff;
-            box-shadow: 0 24px 60px rgba(15, 23, 42, 0.12);
+            background: rgba(255, 255, 255, 0.96);
+            box-shadow: 0 24px 60px rgba(15, 23, 42, 0.2);
             border: 1px solid rgba(148, 163, 184, 0.16);
+            backdrop-filter: blur(8px);
         }
 
-        h1 {
+        .error-code {
             margin: 0;
-            font-size: clamp(2.5rem, 4vw, 3.5rem);
-            color: #1d4ed8;
+            font-size: clamp(3rem, 7vw, 5rem);
+            color: #659287;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+        }
+
+        h2 {
+            margin: 0.5rem 0 0.75rem;
+            font-size: 1.6rem;
+            color: #233d4d;
         }
 
         p {
-            margin: 1rem 0 1.75rem;
+            margin: 0 0 1.6rem;
             color: #475569;
             line-height: 1.7;
             font-size: 1.05rem;
@@ -43,23 +55,26 @@
         a {
             display: inline-block;
             padding: 0.95rem 1.5rem;
-            border-radius: 14px;
-            background: #1d4ed8;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #659287, #4f766b);
             color: #ffffff;
             text-decoration: none;
             font-weight: 700;
-            transition: background 0.2s ease;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 10px 20px rgba(101, 146, 135, 0.25);
         }
 
         a:hover {
-            background: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 14px 24px rgba(101, 146, 135, 0.3);
         }
     </style>
 </head>
 
 <body>
     <div class="page-shell">
-        <h1>404</h1>
+        <h1 class="error-code">404</h1>
+        <h2>Oops! Page not found</h2>
         <p>Sorry, the page you are looking for cannot be found. Please check the URL or return to the homepage.</p>
         <a href="/">Back to Home</a>
     </div>
