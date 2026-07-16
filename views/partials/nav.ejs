@@ -143,6 +143,12 @@
     </div>
 
     <div class="navbar-right">
-        <a href="/login" class="login-btn">Login</a>
+        <% if (isLoggedIn) { %>
+            <form action="/logout" method="POST" style="margin:0;">
+                <button type="submit" class="login-btn">Logout</button>
+            </form>
+        <% } else { %>
+            <a href="/login" class="login-btn">Login</a>
+        <% } %>
     </div>
 </header>
