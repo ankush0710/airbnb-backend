@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const session = require("express-session");
+const mongoDBStore = require("connect-mongodb-session")(session);
 
 //Local Modules
 const storeRouter = require("./Routes/storeRouter");
@@ -17,15 +18,22 @@ app.set("views", path.join(__dirname, "views"));
 //It reads the data and makes it available as a JavaScript object on req.body
 // Parse URL-encoded bodies (as sent by HTML forms)
 
-// Request logging middleware 
 
 app.use(express.urlencoded({ extended: true }));
 
-//creatong the session middleware by using express-session package
+const PORT = 3001;
+const db_path = "mongodb+srv://ankushkurvey053:aNkush123@airbnb-database.az5xv5b.mongodb.net/"
+const store = new mongoDBStore({
+  uri: db_path,
+  collection: 'sessions',
+}) 
+
+//creating the session middleware by using express-session package
 app.use(session({
   secret: "my session secretes key",
   resave: false,
   saveUninitialized: true,
+  store: store,
 }))
 
 //creating cookies for secure login and logout
@@ -48,8 +56,6 @@ app.use("/host", (req, res, next) => {
 //404 error page
 app.use(errorController.pageNotFound);
 
-const PORT = 3001;
-const db_path = "mongodb+srv://ankushkurvey053:aNkush123@airbnb-database.az5xv5b.mongodb.net/"
 mongoose.connect(db_path).then(() => {
   console.log("Connect to MongoDB and Mongoose");
   app.listen(PORT, () => {
