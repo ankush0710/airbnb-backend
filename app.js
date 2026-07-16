@@ -2,6 +2,7 @@
 const express = require("express");
 const app = express();
 const path = require("path");
+const session = require("express-session");
 
 //Local Modules
 const storeRouter = require("./Routes/storeRouter");
@@ -19,6 +20,15 @@ app.set("views", path.join(__dirname, "views"));
 // Request logging middleware 
 
 app.use(express.urlencoded({ extended: true }));
+
+//creatong the session middleware by using express-session package
+app.use(session({
+  secret: "my session secretes key",
+  resave: false,
+  saveUninitialized: true,
+}))
+
+//creating cookies for secure login and logout
 app.use((req, res, next) => {
   req.isLoggedIn = req.get('Cookie') ? req.get('Cookie').split('=')[1] === 'true' : false;
   // console.log("cookie check middleware: ", req.get('Cookie'));
