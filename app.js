@@ -30,7 +30,7 @@ app.use(session({
 
 //creating cookies for secure login and logout
 app.use((req, res, next) => {
-  req.isLoggedIn = req.get('Cookie') ? req.get('Cookie').split('=')[1] === 'true' : false;
+  req.isLoggedIn = req.session.isLoggedIn
   // console.log("cookie check middleware: ", req.get('Cookie'));
   next();
 })
