@@ -5,6 +5,13 @@ exports.getLogin = (req, res, next) => {
     })
 }
 
+exports.getSignup = (req, res, next) => {
+    res.render('auth/signup/signup', {
+        pageTitle: "signup",
+        isLoggedIn: false,
+    })
+}
+
 exports.postLogin = (req, res, next) => {
     console.log(req.body);
     req.session.isLoggedIn=true;
