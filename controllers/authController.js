@@ -14,8 +14,11 @@ exports.getSignup = (req, res, next) => {
 
 exports.postLogin = (req, res, next) => {
     console.log(req.body);
-    req.session.isLoggedIn=true;
-    // req.isLoggedIn = true;
+    res.redirect("/");
+}
+
+exports.postSignup = (req, res, next) => {
+    console.log(req.body);
     res.redirect("/");
 }
 
