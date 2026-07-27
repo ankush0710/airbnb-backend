@@ -1,0 +1,57 @@
+<style>
+            .error-container {
+            background: #fee2e2;
+            border: 1.5px solid #fca5a5;
+            border-radius: 10px;
+            padding: 1rem 1.2rem;
+            margin-bottom: 1.2rem;
+            grid-column: 1 / -1;
+        }
+
+        .error-container h4 {
+            margin: 0 0 0.6rem;
+            color: #dc2626;
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        .error-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .error-list li {
+            color: #b91c1c;
+            font-size: 0.9rem;
+            margin: 0.4rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .error-list li:before {
+            content: "✕";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+</style>
+
+<% 
+  const messageList = Array.isArray(errorMessage) && errorMessage.length > 0
+    ? errorMessage
+    : (Array.isArray(errors) && errors.length > 0 ? errors : []);
+%>
+
+<% if (messageList.length > 0) { %>
+    <div class="error-container">
+        <h4>⚠ Please fix the following errors:</h4>
+        <ul class="error-list">
+            <% messageList.forEach(error => { %>
+                <li>
+                    <%= error %>
+                </li>
+            <% }); %>
+        </ul>
+    </div>
+<% } %>

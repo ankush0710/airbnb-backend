@@ -6,6 +6,8 @@ exports.getLogin = (req, res, next) => {
   res.render("auth/login/login", {
     pageTitle: "Login",
     isLoggedIn: false,
+    errorMessage: [],
+    oldInput: { email: "" },
   });
 };
 
@@ -18,7 +20,18 @@ exports.getSignup = (req, res, next) => {
   });
 };
 
-exports.postLogin = (req, res, next) => {
+exports.postLogin = async (req, res, next) => {
+  const {email, password} = req.body;
+  const user = await Users.findOne({email});
+  if(!user){
+    return res.status(422).render("auth/login/login", {
+      pageTitle: "Login",
+      isLoggedIn: false,
+      errorMessage: ["User does not exist"],
+      oldInput: { email: email || "" }
+    })
+  }
+  req.session.isLoggedIn = true;
   res.redirect("/");
 };
 
