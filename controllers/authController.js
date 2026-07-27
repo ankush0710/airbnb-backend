@@ -1,4 +1,5 @@
 const { check, validationResult } = require("express-validator");
+const Users = require("../models/Users");
 
 exports.getLogin = (req, res, next) => {
   res.render("auth/login/login", {
@@ -12,7 +13,7 @@ exports.getSignup = (req, res, next) => {
     pageTitle: "signup",
     isLoggedIn: false,
     errors: [],
-    oldInput: {fname:"", lname:"", email:"", password:"", role:""},
+    oldInput: { fname: "", lname: "", email: "", password: "", role: "" },
   });
 };
 
@@ -85,8 +86,8 @@ exports.postSignup = [
 
   (req, res, next) => {
     const { fname, lname, email, password, role } = req.body;
-    const errors = validationResult(req);
-    console.log(errors);
+    const errors = validationResult(req); 
+
     if (!errors.isEmpty()) {
       return res.status(422).render("auth/signup/signup", {
         pageTitle: "Sign Up",
@@ -101,7 +102,27 @@ exports.postSignup = [
         },
       });
     }
-    res.redirect("/login");
+
+    const user = new Users({ firstName: fname, lastName: lname, email, password, role });
+    user
+      .save()
+      .then(() => {
+        return res.redirect("/login");
+      })
+      .catch((err) => {
+        return res.status(422).render("auth/signup/signup", {
+          pageTitle: "Sign Up",
+          isLoggedIn: false,
+          errorMessage: [err.message],
+          oldInput: {
+            fname,
+            lname,
+            email,
+            password,
+            role,
+          },
+        });
+      });
   },
 ];
 
