@@ -45,10 +45,13 @@
 
         .form-grid {
             display: grid;
-            grid-template-columns: repeat(2, minmax(220px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 1rem 1.2rem;
             margin-bottom: 1.2rem;
             align-items: start;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .form-group {
@@ -60,6 +63,10 @@
         }
 
         .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group.row-full {
             grid-column: 1 / -1;
         }
 
@@ -145,32 +152,79 @@
         .register-link:hover {
             text-decoration: underline;
         }
+
+        .error-container {
+            background: #fee2e2;
+            border: 1.5px solid #fca5a5;
+            border-radius: 10px;
+            padding: 1rem 1.2rem;
+            margin-bottom: 1.2rem;
+            grid-column: 1 / -1;
+        }
+
+        .error-container h4 {
+            margin: 0 0 0.6rem;
+            color: #dc2626;
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        .error-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .error-list li {
+            color: #b91c1c;
+            font-size: 0.9rem;
+            margin: 0.4rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .error-list li:before {
+            content: "✕";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
     </style>
 </head>
 
 <body>
     <div class="login-card">
-            <h2>Welcome to Airbnb</h2>
+            <h2>Welcome to airbnb</h2>
             <p>Register as a new user</p>
         <form action="/signup" method="POST">
+            <% if(typeof(errorMessage) !== 'undefined' && errorMessage && errorMessage.length > 0) {%>
+                    <div class="error-container">
+                        <h4>⚠ Please fix the following errors:</h4>
+                        <ul class="error-list">
+                            <% errorMessage.forEach(error => { %>
+                                <li><%= error %></li>
+                            <% }); %>
+                        </ul>
+                    </div>
+                <%}%>
             <div class="form-grid">
                 <div class="form-group">
                     <label for="fname">First Name</label>
-                    <input type="text" id="fname" name="fname" placeholder="Enter First Name" required>
+                    <input type="text" id="fname" name="fname" value="<%=oldInput.fname ? oldInput.fname : ''%>" placeholder="Enter First Name" required>
                 </div>
                 <div class="form-group">
                     <label for="lname">Last Name</label>
-                    <input type="text" id="lname" name="lname" placeholder="Enter Last Name" required>
+                    <input type="text" id="lname" name="lname" value="<%=oldInput.lname ? oldInput.lname : ''%>" placeholder="Enter Last Name" required>
                 </div>
-                <div class="form-group">
+                <div class="form-group row-full">
                     <label for="email">Email or Username</label>
-                    <input type="email" id="email" name="email" placeholder="Enter email or username" required>
+                    <input type="email" id="email" name="email" value="<%=oldInput.email ? oldInput.email : ''%>" placeholder="Enter email or username" required>
                 </div>
-                <div class="form-group">
+                <div class="form-group row-full">
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password" placeholder="Enter password" required>
                 </div>
-                <div class="form-group">
+                <div class="form-group row-full">
                     <label for="cpassword">Confirm Password</label>
                     <input type="password" id="cpassword" name="cpassword" placeholder="Enter confirm password" required>
                 </div>
