@@ -21,17 +21,28 @@ exports.getSignup = (req, res, next) => {
 };
 
 exports.postLogin = async (req, res, next) => {
-  const {email, password} = req.body;
-  const user = await Users.findOne({email});
-  if(!user){
+  const { email, password } = req.body;
+  const user = await Users.findOne({ email });
+  if (!user) {
     return res.status(422).render("auth/login/login", {
       pageTitle: "Login",
       isLoggedIn: false,
       errorMessage: ["User does not exist"],
-      oldInput: { email: email || "" }
-    })
+      oldInput: { email: email || "" },
+    });
+  }
+  const isMatch = await bcrypt.compare(password, user.password);
+  if (!isMatch) {
+    return res.status(422).render("auth/login/login", {
+      pageTitle: "Login",
+      isLoggedIn: false,
+      errorMessage: ["Invalid password"],
+      oldInput: { email: email || "" },
+    });
   }
   req.session.isLoggedIn = true;
+  req.session.user = Users;
+  await req.session.save();
   res.redirect("/");
 };
 
@@ -100,7 +111,7 @@ exports.postSignup = [
 
   (req, res, next) => {
     const { fname, lname, email, password, role } = req.body;
-    const errors = validationResult(req); 
+    const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
       return res.status(422).render("auth/signup/signup", {
@@ -118,12 +129,22 @@ exports.postSignup = [
     }
 
     //hashing the password by using bcrypt hashing mechanism
-    bcrypt.hash(password, 12).then(hashedPassword => {
-      const user = new Users({ firstName: fname, lastName: lname, email, password: hashedPassword, role });
-      return user.save();
-    }).then(() => {
-      res.redirect("/login");
-    }).catch((err) => {
+    bcrypt
+      .hash(password, 12)
+      .then((hashedPassword) => {
+        const user = new Users({
+          firstName: fname,
+          lastName: lname,
+          email,
+          password: hashedPassword,
+          role,
+        });
+        return user.save();
+      })
+      .then(() => {
+        res.redirect("/login");
+      })
+      .catch((err) => {
         return res.status(422).render("auth/signup/signup", {
           pageTitle: "Sign Up",
           isLoggedIn: false,

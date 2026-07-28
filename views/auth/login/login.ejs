@@ -91,13 +91,17 @@
       display: block;
       text-align: center;
       margin-top: 1rem;
-      color: #659287;
+      color: #000000; /* changed to black */
       font-weight: 600;
       text-decoration: none;
     }
 
-    .register-link:hover {
-      text-decoration: underline;
+    .register-link .register-cta {
+      color: #659287; /* restore previous green for 'Register' only */
+    }
+
+    .register-link .register-cta:hover {
+      text-decoration: underline; /* restore previous green for 'Register' only */
     }
   </style>
 </head>
@@ -120,7 +124,7 @@
       <button type="submit" class="login-btn">Login</button>
     </form>
 
-    <a href="/signup" class="register-link">Don’t have an account? Register</a>
+    <a href="/signup" class="register-link">Don’t have an account? <span class="register-cta">Register</span></a>
   </div>
 </body>
 </html>

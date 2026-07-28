@@ -38,9 +38,9 @@
 </style>
 
 <% 
-  const messageList = Array.isArray(errorMessage) && errorMessage.length > 0
-    ? errorMessage
-    : (Array.isArray(errors) && errors.length > 0 ? errors : []);
+    const messageList = (typeof errorMessage !== 'undefined' && Array.isArray(errorMessage) && errorMessage.length > 0)
+        ? errorMessage
+        : (typeof errors !== 'undefined' && Array.isArray(errors) && errors.length > 0 ? errors : []);
 %>
 
 <% if (messageList.length > 0) { %>
