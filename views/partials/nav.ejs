@@ -109,7 +109,7 @@
 
 <header class="navbar">
     <div class="navbar-left">
-        <div class="brand">airbnb Clone</div>
+        <div class="brand">airbnb</div>
     </div>
 
     <div class="navbar-center">
@@ -117,28 +117,30 @@
             <a href="/" class="<%= currentPage === 'Home' ? 'navActiveItems' : 'navItems' %>">Home</a>
 
             <% if(isLoggedIn) {%>
-                <!-- <a href="/reserve" class="<%= currentPage === 'reserve' ? 'navActiveItems' : 'navItems' %>">
-                Reserve
-            </a>
-            
-             <a href="/bookings" class="<%= currentPage === 'bookings' ? 'navActiveItems' : 'navItems' %>">
-                Bookings
-            </a> -->
+                <% if(typeof user !== 'undefined' && user && user.role === 'guest') {%>
+                    <a href="/reserve" class="<%= currentPage === 'reserve' ? 'navActiveItems' : 'navItems' %>">
+                        Reserve
+                    </a>
 
-                <a href="/favourites" class="<%= currentPage === 'favourites' ? 'navActiveItems' : 'navItems' %>">
-                    Favourites
-                </a>
+                    <a href="/bookings" class="<%= currentPage === 'bookings' ? 'navActiveItems' : 'navItems' %>">
+                        Bookings
+                    </a>
 
-                <a href="/host/add-home" class="<%= currentPage === 'addHome' ? 'navActiveItems' : 'navItems' %>">
-                    Add Home
-                </a>
+                    <a href="/favourites" class="<%= currentPage === 'favourites' ? 'navActiveItems' : 'navItems' %>">
+                        Favourites
+                    </a>
+                <% } else {%>
+                    <a href="/host/add-home"
+                        class="<%= currentPage === 'addHome' ? 'navActiveItems' : 'navItems' %>">
+                        Add Home
+                    </a>
 
-                <a href="/host/host-home-list"
-                    class="<%= currentPage === 'host-home-list' ? 'navActiveItems' : 'navItems' %>">
-                    Host Home List
-                </a>
-
+                    <a href="/host/host-home-list"
+                        class="<%= currentPage === 'host-home-list' ? 'navActiveItems' : 'navItems' %>">
+                        Host Home List
+                    </a>
                 <% } %>
+            <% } %>
         </nav>
     </div>
 
@@ -147,8 +149,8 @@
             <form action="/logout" method="POST" style="margin:0;">
                 <button type="submit" class="login-btn">Logout</button>
             </form>
-        <% } else { %>
-            <a href="/login" class="login-btn">Login</a>
-        <% } %>
+            <% } else { %>
+                <a href="/login" class="login-btn">Login</a>
+                <% } %>
     </div>
 </header>

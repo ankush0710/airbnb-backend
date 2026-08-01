@@ -32,26 +32,33 @@ const store = new mongoDBStore({
 app.use(session({
   secret: "my session secretes key",
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
   store: store,
+  cookie: {
+    maxAge: 24 * 60 * 60 * 1000,
+  },
 }))
 
-//creating cookies for secure login and logout
+// creating cookies for secure login and logout
 app.use((req, res, next) => {
-  req.isLoggedIn = req.session.isLoggedIn
-  // console.log("cookie check middleware: ", req.get('Cookie'));
+  req.isLoggedIn = Boolean(req.session.isLoggedIn);
+  req.user = req.session.user || {};
+
+  res.locals.isLoggedIn = req.isLoggedIn;
+  res.locals.user = req.user;
+
   next();
 })
 app.use(authRouter);
 app.use(storeRouter);
 app.use("/host", (req, res, next) => {
-  if(req.isLoggedIn){
+  if (req.isLoggedIn) {
     next();
-  }
-  else{
+  } else {
     res.redirect("/login");
   }
 });
+app.use("/host", hostRouter);
 
 //404 error page
 app.use(errorController.pageNotFound);
