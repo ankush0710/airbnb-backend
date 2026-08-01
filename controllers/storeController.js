@@ -2,7 +2,6 @@
 const path = require("path");
 const Home = require("../models/home");
 const { homedir } = require("os");
-const Favourite = require("../models/favourite");
 
 //===============================================================//
 // controller for home route
@@ -41,22 +40,23 @@ exports.getReserve = (req, res, next) => {
 //=================================================================//
 // controller for favourites route
 exports.getFavouitesList = (req, res, next) => {
-  Favourite.find().then((favourites) => {
-    favourites = favourites.map((fav) => fav.houseId.toString());
-    Home.find().then((homesData) => {
-      console.log(favourites, homesData);
-      const favouriteHomes = homesData.filter((home) =>
-        favourites.includes(home._id.toString()),
-      );
-      res.render("storeViews/favourite-list/favourite-list", {
-        favouriteHomes: favouriteHomes,
-        pageTitle: "My Favourites",
-        currentPage: "favourites",
-        isLoggedIn: req.isLoggedIn,
-        user: req.session.user,
-      })
-    });
-  });
+  req.session.user.populate('favourite')
+  // Favourite.find().then((favourites) => {
+  //   favourites = favourites.map((fav) => fav.houseId.toString());
+  //   Home.find().then((homesData) => {
+  //     console.log(favourites, homesData);
+  //     const favouriteHomes = homesData.filter((home) =>
+  //       favourites.includes(home._id.toString()),
+  //     );
+  //     res.render("storeViews/favourite-list/favourite-list", {
+  //       favouriteHomes: favouriteHomes,
+  //       pageTitle: "My Favourites",
+  //       currentPage: "favourites",
+  //       isLoggedIn: req.isLoggedIn,
+  //       user: req.session.user,
+  //     })
+  //   });
+  // });
 };
 
 //===============================================================//

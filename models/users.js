@@ -1,5 +1,6 @@
 // userrs schema when new user register or already registered user loggedIn
 const mongoose = require("mongoose");
+const favourite = require("./favourite");
 
 const userSchema = new mongoose.Schema({
   firstName: {
@@ -24,7 +25,11 @@ const userSchema = new mongoose.Schema({
     type: String,
     enum: ['guest', 'admin'],
     default: 'guest',
-  }
+  },
+  favourite:[{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Home',
+  }]
 });
 
 module.exports = mongoose.model("Users", userSchema);
