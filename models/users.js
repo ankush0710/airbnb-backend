@@ -1,6 +1,5 @@
 // userrs schema when new user register or already registered user loggedIn
 const mongoose = require("mongoose");
-const favourite = require("./favourite");
 
 const userSchema = new mongoose.Schema({
   firstName: {
@@ -32,4 +31,4 @@ const userSchema = new mongoose.Schema({
   }]
 });
 
-module.exports = mongoose.model("Users", userSchema);
+module.exports = mongoose.models.Users || mongoose.model("Users", userSchema);

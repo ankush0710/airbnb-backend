@@ -1,7 +1,8 @@
 //import local module -> path
 const path = require("path");
+const mongoose = require("mongoose");
 const Home = require("../models/home");
-const { homedir } = require("os");
+const User = require("../models/users");
 
 //===============================================================//
 // controller for home route
@@ -19,66 +20,63 @@ exports.getHomes = (req, res, next) => {
 //=================================================================//
 // controller for bookings routes
 exports.getBookings = (req, res, next) => {
-  res.render("storeViews/booking/bookings", { 
-    currentPage: "bookings", 
+  res.render("storeViews/booking/bookings", {
+    currentPage: "bookings",
     isLoggedIn: req.isLoggedIn,
     user: req.session.user,
   });
-    
 };
 
 //================================================================//
 // controller for reserve route
 exports.getReserve = (req, res, next) => {
-  res.render("storeViews/reserve/reserve", { 
+  res.render("storeViews/reserve/reserve", {
     currentPage: "reserve",
-    isLoggedIn: req.isLoggedIn, 
+    isLoggedIn: req.isLoggedIn,
     user: req.session.user,
   });
 };
 
 //=================================================================//
 // controller for favourites route
-exports.getFavouitesList = (req, res, next) => {
-  req.session.user.populate('favourite')
-  // Favourite.find().then((favourites) => {
-  //   favourites = favourites.map((fav) => fav.houseId.toString());
-  //   Home.find().then((homesData) => {
-  //     console.log(favourites, homesData);
-  //     const favouriteHomes = homesData.filter((home) =>
-  //       favourites.includes(home._id.toString()),
-  //     );
-  //     res.render("storeViews/favourite-list/favourite-list", {
-  //       favouriteHomes: favouriteHomes,
-  //       pageTitle: "My Favourites",
-  //       currentPage: "favourites",
-  //       isLoggedIn: req.isLoggedIn,
-  //       user: req.session.user,
-  //     })
-  //   });
-  // });
+exports.getFavouitesList = async (req, res, next) => {
+  const userId = req.session.user?._id;
+
+  if (!userId) {
+    return res.redirect("/login");
+  }
+
+  const user = await User.findById(userId).populate("favourite");
+  res.render("storeViews/favourite-list/favourite-list", {
+    favouriteHomes: user.favourite,
+    pageTitle: "My Favourites",
+    currentPage: "favourites",
+    isLoggedIn: req.isLoggedIn,
+    user: req.session.user,
+  });
 };
 
 //===============================================================//
 // controller for home Favourites route
-exports.postAddToFavourite = (req, res, next) => {
-  const houseId = req.body.id;
-  Favourite.findOne({houseId: houseId}).then((fav) => {
-    if(fav){
-      console.log("Already marked as favourites");
-    }
-    else{
-      const fav = new Favourite({houseId: houseId});
-      fav.save().then((result) => {
-        console.log("Home added to favourites");
-      })
-    }
-    res.redirect("/favourites");
-  }).catch((err) =>{
-    console.log("Error While Add to favourites", err);
-  });
-}
+exports.postAddToFavourite = async (req, res, next) => {
+  const houseId = req.body.homeId || req.body.id || req.body.houseId;
+  const userId = req.session.user?._id;
 
+  if (!houseId || !userId) {
+    return res.redirect("/login");
+  }
+
+  const user = await User.findById(userId);
+  const normalizedHouseId = houseId.toString();
+  const alreadyFavorite = user.favourite.some((favId) => favId.toString() === normalizedHouseId);
+
+  if (!alreadyFavorite) {
+    user.favourite.push(new mongoose.Types.ObjectId(normalizedHouseId));
+    await user.save();
+  }
+
+  res.redirect("/favourites");
+};
 
 //===============================================================//
 // controller for home Details route
@@ -104,4 +102,4 @@ exports.getHomeDetails = (req, res, next) => {
       });
     }
   });
-}
+};
